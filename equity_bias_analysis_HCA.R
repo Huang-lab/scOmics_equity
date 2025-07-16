@@ -412,9 +412,10 @@ p8 <- ggplot(tissue_dist_data, aes(x = reorder(Tissue_Type, -n), y = n)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
         axis.text.y = element_text(size = 12),
         axis.title = element_text(size = 14),
-        title = element_text(size = 16))
+        title = element_text(size = 16)) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15)))
 
-ggsave("out/HCA_tissue_type_distribution.pdf", p8, width = 8, height = 4)
+ggsave("out/HCA_tissue_type_distribution.pdf", p8, width = 10, height = 6)
 log_message("Saved: HCA_tissue_type_distribution.pdf")
 
 # ============================================================================

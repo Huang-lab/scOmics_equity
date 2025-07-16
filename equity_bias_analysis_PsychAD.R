@@ -317,6 +317,41 @@ disease_sex_summary <- disease_data %>%
 log_message("\nDisease distribution by sex:")
 capture.output(print(disease_sex_summary), file = log_file, append = TRUE)
 
+# Create disease distribution plots
+# Overall disease distribution
+disease_counts_plot <- disease_data %>%
+  summarise(
+    AD_combined = sum(AD_combined, na.rm = TRUE),
+    SCZ = sum(SCZ, na.rm = TRUE),
+    DLBD = sum(DLBD, na.rm = TRUE),
+    Vascular = sum(Vascular, na.rm = TRUE),
+    BD = sum(BD, na.rm = TRUE),
+    Tau = sum(Tau, na.rm = TRUE),
+    PD = sum(PD, na.rm = TRUE),
+    FTD = sum(FTD, na.rm = TRUE),
+    Dementia = sum(Dementia, na.rm = TRUE),
+    Control = sum(Control, na.rm = TRUE)
+  ) %>%
+  gather(Disease, Count) %>%
+  mutate(Percentage = round(Count / sum(Count) * 100, 1))
+
+p_disease_dist <- ggplot(disease_counts_plot, aes(x = reorder(Disease, Count), y = Count)) +
+  geom_bar(stat = "identity", fill = "#1F78B4", alpha = 0.8) +
+  geom_text(aes(label = paste0(Count, "\n(", Percentage, "%)")),
+            hjust = -0.1, size = 3, color = "black") +
+  coord_flip() +
+  labs(title = "Disease Distribution in PsychAD Dataset",
+       x = "Disease Type",
+       y = "Number of Samples") +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5, size = 12, face = "bold"),
+        axis.text = element_text(size = 10),
+        axis.title = element_text(size = 11)) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15)))
+
+ggsave("out/PsychAD_disease_type_distribution.pdf", p_disease_dist, width = 8, height = 6)
+log_message("Saved: PsychAD_disease_type_distribution.pdf")
+
 log_message("\n=== STEP 1-3 COMPLETED ===")
 log_message("✓ Dataset composition overview completed")
 log_message("✓ Ancestry distribution analysis completed")

@@ -372,9 +372,10 @@ p8 <- ggplot(cancer_dist_data, aes(x = reorder(Cancer_Type_Final, -n), y = n)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
         axis.text.y = element_text(size = 12),
         axis.title = element_text(size = 14),
-        title = element_text(size = 16))
+        title = element_text(size = 16)) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15)))
 
-ggsave("out/HTAN_cancer_type_distribution.pdf", p8, width = 6, height = 4)
+ggsave("out/HTAN_cancer_type_distribution.pdf", p8, width = 10, height = 6)
 log_message("Saved: HTAN_cancer_type_distribution.pdf")
 
 log_message("\n=== STEP 4-5 COMPLETED ===")

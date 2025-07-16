@@ -1,6 +1,61 @@
-# Equity Bias Analysis: Multi-Dataset Comparison
-
+# Equity & RepresentationBias in Major Single-Cell/Spatial Omics Datasets
 This repository contains comprehensive equity bias analyses across three major biomedical research domains: neuropsychiatric disorders (PsychAD), cancer research (HTAN), and cell atlas studies (HCA).
+
+## Installation
+
+### Prerequisites
+- R (version 4.0 or higher)
+- RStudio (recommended)
+
+### Install Required R Packages
+
+Run the following commands in R or RStudio to install all dependencies:
+
+```r
+# Install required packages
+required_packages <- c(
+  "ggplot2",
+  "dplyr", 
+  "tidyr",
+  "stringr",
+  "scales",
+  "readxl",
+  "car"
+)
+
+# Check which packages need to be installed
+missing_packages <- required_packages[!(required_packages %in% installed.packages()[,"Package"])]
+
+# Install missing packages
+if(length(missing_packages) > 0) {
+  install.packages(missing_packages)
+}
+
+# Load all packages to verify installation
+lapply(required_packages, library, character.only = TRUE)
+```
+
+### Verify Installation
+
+```r
+# Quick test to ensure all packages load correctly
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(scales)
+library(readxl)
+library(car)
+
+cat("All packages installed successfully!\n")
+```
+
+## Data Setup
+
+Ensure your data files are placed in the `data/` directory:
+- `data/psych-AD_media-1.csv` (for PsychAD analysis)
+- `data/HTAN scrnaseq data final.xlsx` (for HTAN analysis)  
+- `data/HCA scrnaseq data final.xlsx` (for HCA analysis)
 
 ## Analysis Scripts
 
@@ -89,16 +144,6 @@ unknown/yes/homo sapiens/NA → NA
 - Uses tissue sheet names as primary tissue type classification
 - Maintains original tissue categorization from HCA
 
-## Output Files
-
-Each analysis generates:
-- **Visualization in PDFs** per dataset (ancestry, gender, intersectional analyses)
-- **Comprehensive log files** with complete statistical summaries:
-  - `psychAD_analysis_log.txt` (197 lines)
-  - `HTAN_analysis_log.txt` (181 lines) 
-  - `HCA_analysis_log.txt` (187 lines)
-- **R workspace files** for further analysis
-
 ## Usage
 
 ```bash
@@ -108,8 +153,9 @@ Rscript equity_bias_analysis_HTAN.R
 Rscript equity_bias_analysis_HCA.R
 ```
 
-## Dependencies
+## Output
 
-- R packages: `ggplot2`, `dplyr`, `tidyr`, `stringr`, `scales`, `readxl`, `car`
-- Input data files in `data/` directory
-- Outputs saved to `out/` directory
+All analyses generate outputs in the `out/` directory:
+- PDF visualizations
+- Statistical analysis logs
+- R workspace files for further analysis
