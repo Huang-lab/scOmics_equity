@@ -8,6 +8,7 @@ library(tidyr)
 library(stringr)
 library(readxl)
 library(scales)
+library(readr)
 
 # Create output directory
 dir.create("out", showWarnings = FALSE)
@@ -340,7 +341,7 @@ if(nrow(tissue_ancestry_data) > 0) {
   p6 <- ggplot(tissue_ancestry_data, aes(x = tissue_label, y = prop, fill = Race_clean)) +
     geom_bar(stat = "identity", position = "stack") +
     theme_minimal(base_size = 14) +
-    labs(title = "HCA: Tissue Types by Ancestry (100% Stacked)",
+    labs(title = "HCA: Tissue Types by Ancestry",
          x = "Tissue Type",
          y = "Proportion",
          fill = "Ancestry") +
@@ -375,7 +376,7 @@ if(nrow(tissue_sex_data) > 0) {
   p7 <- ggplot(tissue_sex_data, aes(x = tissue_label, y = prop, fill = Gender_clean)) +
     geom_bar(stat = "identity", position = "stack") +
     theme_minimal(base_size = 14) +
-    labs(title = "HCA: Tissue Types by Sex (100% Stacked)",
+    labs(title = "HCA: Tissue Types by Sex",
          x = "Tissue Type",
          y = "Proportion",
          fill = "Sex") +
@@ -419,63 +420,262 @@ ggsave("out/HCA_tissue_type_distribution.pdf", p8, width = 10, height = 6)
 log_message("Saved: HCA_tissue_type_distribution.pdf")
 
 # ============================================================================
-# 6. STATISTICAL ANALYSIS (SAME METHODS AS PSYCHAD)
+# 6. STATISTICAL ANALYSIS AGAINST GLOBAL REFERENCE
 # ============================================================================
 
-log_message("\n=== STATISTICAL ANALYSIS ===")
+log_message("\n=== STATISTICAL ANALYSIS AGAINST GLOBAL REFERENCE ===")
 
-# Load additional packages for statistical tests
-if (!require(car, quietly = TRUE)) {
-  install.packages("car")
-  library(car)
-}
 
-# 1. Hypothesis Testing (adapted for smaller sample sizes)
-log_message("\n--- Hypothesis Testing ---")
 
-# Chi-square test for ancestry distribution vs expected equal distribution
+
+# Load global reference data
+log_message("Loading global reference data...")
+global_ref <- read_csv("data/Global_reference.csv")
+
+# Parse global ancestry data
+global_ancestry_text <- global_ref$`Source & Numbers`[global_ref$Category == "Ancestry" & global_ref$Region == "Global"]
+global_ancestry_text <- global_ancestry_text[1]  # Take the first match
+
+# Extract percentages using regex
+global_ancestry_data <- data.frame(
+  Ancestry = c("Asian", "African", "European", "Latino", "Other"),
+  Global_Percentage = c(59.4, 17.6, 9.4, 13.6, 0)  # N. America + Oceania + S. America = 13.6%
+)
+
+# Parse global sex data
+global_sex_text <- global_ref$`Source & Numbers`[global_ref$Category == "Sex Distribution" & global_ref$Region == "Global"]
+global_sex_text <- global_sex_text[1]
+
+global_sex_data <- data.frame(
+  Sex = c("male", "female"),
+  Global_Percentage = c(50.2, 49.8)
+)
+
+log_message("Global reference data loaded:")
+log_message("Global ancestry distribution:")
+capture.output(print(global_ancestry_data), file = log_file, append = TRUE)
+log_message("Global sex distribution:")
+capture.output(print(global_sex_data), file = log_file, append = TRUE)
+
+# 1. Hypothesis Testing Against Global Reference
+log_message("\n--- Hypothesis Testing Against Global Reference ---")
+
+# Chi-square test for ancestry distribution vs global reference
 ancestry_for_test <- data$Race_clean[!is.na(data$Race_clean) & data$Race_clean != "Unknown"]
 if(length(unique(ancestry_for_test)) > 1 & length(ancestry_for_test) > 10) {
-  chisq_ancestry <- chisq.test(table(ancestry_for_test))
-  log_message("Chi-square test for ancestry distribution:")
-  log_message(paste("X-squared =", chisq_ancestry$statistic, ", p-value =", chisq_ancestry$p.value))
+  # Create observed counts
+  observed_counts <- table(ancestry_for_test)
+  
+  # Create expected counts based on global reference
+  total_observed <- sum(observed_counts)
+  expected_counts <- numeric(length(observed_counts))
+  
+  # Map HCA categories to global categories
+  for(i in 1:length(observed_counts)) {
+    ancestry_name <- names(observed_counts)[i]
+    if(ancestry_name %in% global_ancestry_data$Ancestry) {
+      global_pct <- global_ancestry_data$Global_Percentage[global_ancestry_data$Ancestry == ancestry_name]
+      expected_counts[i] <- total_observed * global_pct / 100
+    } else {
+      # For categories not in global reference, use equal distribution
+      expected_counts[i] <- total_observed / length(observed_counts)
+    }
+  }
+  
+  # Perform chi-square test
+  chisq_ancestry_global <- chisq.test(observed_counts, p = expected_counts/sum(expected_counts))
+  log_message("Chi-square test for ancestry distribution vs global reference:")
+  log_message(paste("X-squared =", round(chisq_ancestry_global$statistic, 3), ", p-value =", format.pval(chisq_ancestry_global$p.value, digits = 3)))
+  log_message("Observed vs Expected counts:")
+  comparison_table <- data.frame(
+    Ancestry = names(observed_counts),
+    Observed = as.numeric(observed_counts),
+    Expected = round(expected_counts, 1),
+    Difference = round(as.numeric(observed_counts) - expected_counts, 1)
+  )
+  capture.output(print(comparison_table), file = log_file, append = TRUE)
 } else {
-  log_message("Insufficient data for chi-square test of ancestry distribution")
+  log_message("Insufficient data for chi-square test of ancestry distribution vs global reference")
 }
 
-# 2. Equity Metrics (SAME CALCULATIONS AS PSYCHAD)
-log_message("\n--- Equity Metrics ---")
+# Chi-square test for sex distribution vs global reference
+sex_for_test <- data$Gender_clean[!is.na(data$Gender_clean)]
+if(length(unique(sex_for_test)) > 1 & length(sex_for_test) > 10) {
+  # Create observed counts
+  observed_sex_counts <- table(sex_for_test)
+  
+  # Create expected counts based on global reference
+  total_observed_sex <- sum(observed_sex_counts)
+  expected_sex_counts <- numeric(length(observed_sex_counts))
+  
+  for(i in 1:length(observed_sex_counts)) {
+    sex_name <- names(observed_sex_counts)[i]
+    if(sex_name %in% global_sex_data$Sex) {
+      global_pct <- global_sex_data$Global_Percentage[global_sex_data$Sex == sex_name]
+      expected_sex_counts[i] <- total_observed_sex * global_pct / 100
+    } else {
+      expected_sex_counts[i] <- total_observed_sex / length(observed_sex_counts)
+    }
+  }
+  
+  # Perform chi-square test
+  chisq_sex_global <- chisq.test(observed_sex_counts, p = expected_sex_counts/sum(expected_sex_counts))
+  log_message("\nChi-square test for sex distribution vs global reference:")
+  log_message(paste("X-squared =", round(chisq_sex_global$statistic, 3), ", p-value =", format.pval(chisq_sex_global$p.value, digits = 3)))
+  log_message("Observed vs Expected sex counts:")
+  sex_comparison_table <- data.frame(
+    Sex = names(observed_sex_counts),
+    Observed = as.numeric(observed_sex_counts),
+    Expected = round(expected_sex_counts, 1),
+    Difference = round(as.numeric(observed_sex_counts) - expected_sex_counts, 1)
+  )
+  capture.output(print(sex_comparison_table), file = log_file, append = TRUE)
+} else {
+  log_message("Insufficient data for chi-square test of sex distribution vs global reference")
+}
 
-# Calculate representation ratios (actual vs expected equal representation)
+# 2. Equity Metrics Against Global Reference
+log_message("\n--- Equity Metrics Against Global Reference ---")
+
+# Calculate representation ratios (actual vs global reference)
 ancestry_data <- data[!is.na(data$Race_clean) & data$Race_clean != "Unknown", ]
 if(nrow(ancestry_data) > 0) {
   total_samples_analysis <- nrow(ancestry_data)
-  unique_ancestries <- unique(ancestry_data$Race_clean)
-  expected_equal <- total_samples_analysis / length(unique_ancestries)
-
-  equity_metrics <- ancestry_data %>%
+  
+  # Create equity metrics against global reference
+  equity_metrics_global <- ancestry_data %>%
     count(Race_clean) %>%
     mutate(
-      expected_equal = expected_equal,
-      representation_ratio = n / expected_equal,
-      equity_index = ifelse(representation_ratio > 1, 1/representation_ratio, representation_ratio)
+      observed_pct = n / total_samples_analysis * 100
+    )
+  
+  # Add global reference percentages
+  equity_metrics_global <- equity_metrics_global %>%
+    left_join(global_ancestry_data, by = c("Race_clean" = "Ancestry")) %>%
+    mutate(
+      Global_Percentage = ifelse(is.na(Global_Percentage), 0, Global_Percentage),
+      representation_ratio_global = observed_pct / Global_Percentage,
+      equity_index_global = ifelse(representation_ratio_global > 1, 1/representation_ratio_global, representation_ratio_global)
     )
 
-  log_message("Representation ratios (>1 = overrepresented, <1 = underrepresented):")
-  capture.output(print(equity_metrics), file = log_file, append = TRUE)
+  log_message("Representation ratios vs global reference (>1 = overrepresented, <1 = underrepresented):")
+  capture.output(print(equity_metrics_global), file = log_file, append = TRUE)
 
   # Simpson's Diversity Index
-  simpson_diversity <- 1 - sum((equity_metrics$n / sum(equity_metrics$n))^2)
+  simpson_diversity <- 1 - sum((equity_metrics_global$n / sum(equity_metrics_global$n))^2)
   log_message(paste("Simpson's Diversity Index:", round(simpson_diversity, 3)))
 
   # Shannon's Diversity Index
-  shannon_diversity <- -sum((equity_metrics$n / sum(equity_metrics$n)) * log(equity_metrics$n / sum(equity_metrics$n)))
+  shannon_diversity <- -sum((equity_metrics_global$n / sum(equity_metrics_global$n)) * log(equity_metrics_global$n / sum(equity_metrics_global$n)))
   log_message(paste("Shannon's Diversity Index:", round(shannon_diversity, 3)))
 } else {
   log_message("Insufficient ancestry data for equity metrics calculation")
 }
 
-# 3. Missing Data Analysis
+# 3. Visualization: HCA vs Global Reference Comparison
+log_message("\n--- Visualization: HCA vs Global Reference Comparison ---")
+
+# Create comparison barplot for ancestry
+if(exists("equity_metrics_global") && nrow(equity_metrics_global) > 0) {
+  # Prepare data for plotting
+  plot_data_ancestry <- equity_metrics_global %>%
+    select(Race_clean, observed_pct, Global_Percentage) %>%
+    gather(key = "Source", value = "Percentage", -Race_clean) %>%
+    mutate(Source = ifelse(Source == "observed_pct", "HCA Dataset", "Global Reference"))
+  
+  # Create comparison barplot
+  p9 <- ggplot(plot_data_ancestry, aes(x = Race_clean, y = Percentage, fill = Source)) +
+    geom_bar(stat = "identity", position = "dodge", width = 0.7) +
+    theme_minimal(base_size = 14) +
+    labs(title = "HCA: Ancestry Distribution vs Global Reference",
+         x = "Ancestry Group", 
+         y = "Percentage (%)",
+         fill = "Data Source") +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
+          axis.text.y = element_text(size = 12),
+          axis.title = element_text(size = 14),
+          title = element_text(size = 16),
+          legend.text = element_text(size = 12),
+          legend.title = element_text(size = 14)) +
+    scale_fill_manual(values = c("HCA Dataset" = "steelblue", "Global Reference" = "darkred"))
+
+  ggsave("out/HCA_ancestry_vs_global_reference.pdf", p9, width = 8, height = 5)
+  log_message("Saved: HCA_ancestry_vs_global_reference.pdf")
+  
+  # Create global reference barplot in same format as HCA
+  global_ancestry_plot_data <- global_ancestry_data %>%
+    filter(Global_Percentage > 0)  # Remove zero percentages
+  
+  p10 <- ggplot(global_ancestry_plot_data, aes(x = reorder(Ancestry, -Global_Percentage), y = Global_Percentage, fill = Ancestry)) +
+    geom_bar(stat = "identity") +
+    theme_minimal(base_size = 14) +
+    labs(title = "Global Reference: Sample Distribution by Ancestry",
+         x = "Ancestry Group", 
+         y = "Percentage (%)") +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
+          axis.text.y = element_text(size = 12),
+          axis.title = element_text(size = 14),
+          title = element_text(size = 16),
+          legend.position = "none") +
+    scale_fill_manual(values = ancestry_colors)
+
+  ggsave("out/Global_reference_ancestry_distribution_barplot.pdf", p10, width = 4, height = 3)
+  log_message("Saved: Global_reference_ancestry_distribution_barplot.pdf")
+}
+
+# Create comparison barplot for sex
+sex_data <- data[!is.na(data$Gender_clean), ]
+if(nrow(sex_data) > 0) {
+  # Calculate observed sex percentages
+  sex_observed <- sex_data %>%
+    count(Gender_clean) %>%
+    mutate(observed_pct = n / sum(n) * 100)
+  
+  # Prepare data for plotting
+  plot_data_sex <- sex_observed %>%
+    select(Gender_clean, observed_pct) %>%
+    bind_rows(global_sex_data %>% select(Sex, Global_Percentage) %>% 
+              rename(Gender_clean = Sex, observed_pct = Global_Percentage)) %>%
+    mutate(Source = rep(c("HCA Dataset", "Global Reference"), each = nrow(sex_observed)))
+  
+  # Create comparison barplot
+  p11 <- ggplot(plot_data_sex, aes(x = Gender_clean, y = observed_pct, fill = Source)) +
+    geom_bar(stat = "identity", position = "dodge", width = 0.7) +
+    theme_minimal(base_size = 14) +
+    labs(title = "HCA: Sex Distribution vs Global Reference",
+         x = "Sex", 
+         y = "Percentage (%)",
+         fill = "Data Source") +
+    theme(axis.text.x = element_text(angle = 0, size = 12),
+          axis.text.y = element_text(size = 12),
+          axis.title = element_text(size = 14),
+          title = element_text(size = 16),
+          legend.text = element_text(size = 12),
+          legend.title = element_text(size = 14)) +
+    scale_fill_manual(values = c("HCA Dataset" = "steelblue", "Global Reference" = "darkred"))
+
+  ggsave("out/HCA_sex_vs_global_reference.pdf", p11, width = 6, height = 4)
+  log_message("Saved: HCA_sex_vs_global_reference.pdf")
+  
+  # Create global reference barplot for sex in same format as HCA
+  p12 <- ggplot(global_sex_data, aes(x = Sex, y = Global_Percentage, fill = Sex)) +
+    geom_bar(stat = "identity") +
+    theme_minimal(base_size = 14) +
+    labs(title = "Global Reference: Sex Distribution",
+         x = "Sex", 
+         y = "Percentage (%)") +
+    theme(axis.text.x = element_text(angle = 0, size = 12),
+          axis.text.y = element_text(size = 12),
+          axis.title = element_text(size = 14),
+          title = element_text(size = 16),
+          legend.position = "none") +
+    scale_fill_manual(values = sex_colors)
+
+  ggsave("out/Global_reference_sex_distribution_barplot.pdf", p12, width = 4, height = 3)
+  log_message("Saved: Global_reference_sex_distribution_barplot.pdf")
+}
+
+# 4. Missing Data Analysis
 log_message("\n--- Missing Data Analysis ---")
 
 # Calculate missing data percentages by ancestry for key variables
@@ -507,6 +707,8 @@ log_message("✓ Representation bias: Extreme EUR dominance, minimal diversity")
 log_message("✓ Tissue types: Multi-tissue studies dominant, limited single-tissue representation")
 log_message("✓ Missing data: High missingness for demographic information")
 log_message("✓ Power concerns: Very small sample sizes for most ancestry groups")
+log_message("✓ Statistical testing: Chi-square tests against global reference completed")
+log_message("✓ Global comparison: Visualizations comparing HCA vs global reference generated")
 
 log_message("\n=== ALL HCA ANALYSIS STEPS COMPLETED ===")
 log_message("✓ Dataset composition overview completed")
@@ -514,8 +716,173 @@ log_message("✓ Ancestry distribution analysis completed")
 log_message("✓ Gender distribution analysis completed")
 log_message("✓ Representation bias analysis completed")
 log_message("✓ Tissue-specific analysis completed")
-log_message("✓ Statistical analysis completed")
-log_message("✓ Equity metrics calculated")
+
+# -------------------------------------------------------------
+# Per-tissue ancestry & sex distributions + chi-square tests
+# - For each tissue type, compute ancestry% and sex% (including NA as a category and excluding NA)
+# - Compare each tissue's distribution to the overall HCA distribution using chi-square
+# - Save CSV summaries and a test-results table for downstream inspection
+# -------------------------------------------------------------
+log_message("\n--- Per-tissue: ancestry and sex distributions & tests ---")
+
+safe_chisq <- function(obs, exp_p) {
+  res <- list(statistic = NA, p.value = NA)
+  if(sum(obs) > 0 && length(obs) > 1) {
+    nonzero <- sum(obs > 0)
+    if(nonzero > 1) {
+      test <- tryCatch(chisq.test(obs, p = exp_p, simulate.p.value = FALSE), error = function(e) NULL)
+      if(!is.null(test)) res <- list(statistic = unname(test$statistic), p.value = test$p.value)
+    }
+  }
+  return(res)
+}
+
+## Normalize tissue type strings to avoid duplicates from trailing spaces/case
+data$Tissue_Type <- trimws(as.character(data$Tissue_Type))
+tissue_groups <- sort(unique(na.omit(data$Tissue_Type)))
+
+per_tissue_ancestry_summary <- data.frame()
+per_tissue_ancestry_tests <- data.frame()
+per_tissue_sex_summary <- data.frame()
+per_tissue_sex_tests <- data.frame()
+
+# Precompute overall reference distributions
+overall_ancestry_incl <- prop.table(table(data$Race_clean, useNA = "ifany"))
+overall_ancestry_excl <- prop.table(table(data$Race_clean[!is.na(data$Race_clean)]))
+overall_sex_incl <- prop.table(table(data$Gender_clean, useNA = "ifany"))
+overall_sex_excl <- prop.table(table(data$Gender_clean[!is.na(data$Gender_clean)]))
+
+for(t in tissue_groups) {
+  grp_rows <- data %>% filter(!is.na(Tissue_Type) & Tissue_Type == t)
+  grp_n <- nrow(grp_rows)
+  if(grp_n == 0) next
+
+  anc_incl_tab <- table(grp_rows$Race_clean, useNA = "ifany")
+  anc_incl_pct <- round(prop.table(anc_incl_tab) * 100, 2)
+  anc_excl_tab <- table(grp_rows$Race_clean[!is.na(grp_rows$Race_clean)])
+  anc_excl_pct <- if(sum(anc_excl_tab) > 0) round(prop.table(anc_excl_tab) * 100, 2) else numeric(0)
+
+  exp_incl <- as.numeric(overall_ancestry_incl[names(anc_incl_tab)])
+  exp_incl[is.na(exp_incl)] <- 0
+  chisq_incl <- safe_chisq(as.numeric(anc_incl_tab), exp_incl)
+
+  if(length(anc_excl_tab) > 0) {
+    exp_excl <- as.numeric(overall_ancestry_excl[names(anc_excl_tab)])
+    exp_excl[is.na(exp_excl)] <- 0
+    chisq_excl <- safe_chisq(as.numeric(anc_excl_tab), exp_excl)
+  } else {
+    chisq_excl <- list(statistic = NA, p.value = NA)
+  }
+
+  per_tissue_ancestry_summary <- bind_rows(per_tissue_ancestry_summary,
+    data.frame(Tissue = t, Include_NA = TRUE, Group_N = grp_n, Category = names(anc_incl_tab), Count = as.numeric(anc_incl_tab), Pct = as.numeric(anc_incl_pct), stringsAsFactors = FALSE),
+    if(length(anc_excl_tab) > 0) data.frame(Tissue = t, Include_NA = FALSE, Group_N = sum(anc_excl_tab), Category = names(anc_excl_tab), Count = as.numeric(anc_excl_tab), Pct = as.numeric(anc_excl_pct), stringsAsFactors = FALSE) else NULL
+  )
+
+  per_tissue_ancestry_tests <- bind_rows(per_tissue_ancestry_tests,
+    data.frame(Tissue = t, Include_NA = TRUE, Group_N = grp_n, ChiSq = chisq_incl$statistic, P_value = chisq_incl$p.value, stringsAsFactors = FALSE),
+    data.frame(Tissue = t, Include_NA = FALSE, Group_N = sum(anc_excl_tab), ChiSq = chisq_excl$statistic, P_value = chisq_excl$p.value, stringsAsFactors = FALSE)
+  )
+
+  # Sex
+  sex_incl_tab <- table(grp_rows$Gender_clean, useNA = "ifany")
+  sex_incl_pct <- round(prop.table(sex_incl_tab) * 100, 2)
+  sex_excl_tab <- table(grp_rows$Gender_clean[!is.na(grp_rows$Gender_clean)])
+  sex_excl_pct <- if(sum(sex_excl_tab) > 0) round(prop.table(sex_excl_tab) * 100, 2) else numeric(0)
+
+  exp_sex_incl <- as.numeric(overall_sex_incl[names(sex_incl_tab)])
+  exp_sex_incl[is.na(exp_sex_incl)] <- 0
+  chisq_sex_incl <- safe_chisq(as.numeric(sex_incl_tab), exp_sex_incl)
+
+  if(length(sex_excl_tab) > 0) {
+    exp_sex_excl <- as.numeric(overall_sex_excl[names(sex_excl_tab)])
+    exp_sex_excl[is.na(exp_sex_excl)] <- 0
+    chisq_sex_excl <- safe_chisq(as.numeric(sex_excl_tab), exp_sex_excl)
+  } else {
+    chisq_sex_excl <- list(statistic = NA, p.value = NA)
+  }
+
+  per_tissue_sex_summary <- bind_rows(per_tissue_sex_summary,
+    data.frame(Tissue = t, Include_NA = TRUE, Group_N = grp_n, Category = names(sex_incl_tab), Count = as.numeric(sex_incl_tab), Pct = as.numeric(sex_incl_pct), stringsAsFactors = FALSE),
+    if(length(sex_excl_tab) > 0) data.frame(Tissue = t, Include_NA = FALSE, Group_N = sum(sex_excl_tab), Category = names(sex_excl_tab), Count = as.numeric(sex_excl_tab), Pct = as.numeric(sex_excl_pct), stringsAsFactors = FALSE) else NULL
+  )
+
+  per_tissue_sex_tests <- bind_rows(per_tissue_sex_tests,
+    data.frame(Tissue = t, Include_NA = TRUE, Group_N = grp_n, ChiSq = chisq_sex_incl$statistic, P_value = chisq_sex_incl$p.value, stringsAsFactors = FALSE),
+    data.frame(Tissue = t, Include_NA = FALSE, Group_N = sum(sex_excl_tab), ChiSq = chisq_sex_excl$statistic, P_value = chisq_sex_excl$p.value, stringsAsFactors = FALSE)
+  )
+
+  # Log a short summary
+  log_message(paste0("Tissue=", t, " (n=", grp_n, "): ancestry incl-NA chi2=", round(as.numeric(chisq_incl$statistic),3), ", p=", format.pval(as.numeric(chisq_incl$p.value), digits = 3)))
+  log_message(paste0("Tissue=", t, " (n=", grp_n, "): ancestry excl-NA chi2=", round(as.numeric(chisq_excl$statistic),3), ", p=", format.pval(as.numeric(chisq_excl$p.value), digits = 3)))
+  log_message(paste0("Tissue=", t, " (n=", grp_n, "): sex incl-NA chi2=", round(as.numeric(chisq_sex_incl$statistic),3), ", p=", format.pval(as.numeric(chisq_sex_incl$p.value), digits = 3)))
+  log_message(paste0("Tissue=", t, " (n=", grp_n, "): sex excl-NA chi2=", round(as.numeric(chisq_sex_excl$statistic),3), ", p=", format.pval(as.numeric(chisq_sex_excl$p.value), digits = 3)))
+}
+
+# Save CSV outputs
+write.csv(per_tissue_ancestry_summary, file = "out/HCA_per_tissue_ancestry_distribution.csv", row.names = FALSE)
+write.csv(per_tissue_ancestry_tests, file = "out/HCA_per_tissue_ancestry_chisq.csv", row.names = FALSE)
+write.csv(per_tissue_sex_summary, file = "out/HCA_per_tissue_sex_distribution.csv", row.names = FALSE)
+write.csv(per_tissue_sex_tests, file = "out/HCA_per_tissue_sex_chisq.csv", row.names = FALSE)
+
+log_message("Saved per-tissue distribution CSVs and chi-square results to out/")
+
+# Build one-row-per-tissue wide summary (percentages excluding NA)
+anc_cats <- names(overall_ancestry_excl)
+sex_cats <- names(overall_sex_excl)
+
+per_tissue_summary_wide <- lapply(tissue_groups, function(t) {
+  grp_rows <- data %>% filter(!is.na(Tissue_Type) & Tissue_Type == t)
+  grp_n <- nrow(grp_rows)
+
+  anc_counts_excl <- as.integer(sapply(anc_cats, function(x) sum(grp_rows$Race_clean == x, na.rm = TRUE)))
+  names(anc_counts_excl) <- anc_cats
+  anc_na_count <- sum(is.na(grp_rows$Race_clean))
+  denom_anc <- sum(anc_counts_excl)
+  anc_pct_excl <- if(denom_anc > 0) round(anc_counts_excl / denom_anc * 100, 2) else rep(0, length(anc_counts_excl))
+
+  sex_counts_excl <- as.integer(sapply(sex_cats, function(x) sum(grp_rows$Gender_clean == x, na.rm = TRUE)))
+  names(sex_counts_excl) <- sex_cats
+  sex_na_count <- sum(is.na(grp_rows$Gender_clean))
+  denom_sex <- sum(sex_counts_excl)
+  sex_pct_excl <- if(denom_sex > 0) round(sex_counts_excl / denom_sex * 100, 2) else rep(0, length(sex_counts_excl))
+
+  exp_anc <- as.numeric(overall_ancestry_excl[anc_cats])
+  exp_sex <- as.numeric(overall_sex_excl[sex_cats])
+  chisq_anc <- safe_chisq(anc_counts_excl, exp_anc)
+  chisq_sex <- safe_chisq(sex_counts_excl, exp_sex)
+
+  row <- c(
+    Tissue = t,
+    Group_N = grp_n,
+    setNames(as.list(anc_counts_excl), paste0("Count_", anc_cats)),
+    Count_Ancestry_NA = anc_na_count,
+    setNames(as.list(anc_pct_excl), paste0("Pct_", anc_cats)),
+    setNames(as.list(sex_counts_excl), paste0("Count_", sex_cats)),
+    Count_Sex_NA = sex_na_count,
+    setNames(as.list(sex_pct_excl), paste0("Pct_", sex_cats)),
+    ChiSq_Ancestry = if(!is.na(chisq_anc$statistic)) round(as.numeric(chisq_anc$statistic),3) else NA,
+    Pvalue_Ancestry = if(!is.na(chisq_anc$p.value)) chisq_anc$p.value else NA,
+    ChiSq_Sex = if(!is.na(chisq_sex$statistic)) round(as.numeric(chisq_sex$statistic),3) else NA,
+    Pvalue_Sex = if(!is.na(chisq_sex$p.value)) chisq_sex$p.value else NA
+  )
+  as.data.frame(row, stringsAsFactors = FALSE)
+}) %>% bind_rows()
+
+num_cols <- setdiff(names(per_tissue_summary_wide), c("Tissue"))
+per_tissue_summary_wide[num_cols] <- lapply(per_tissue_summary_wide[num_cols], function(x) as.numeric(as.character(x)))
+
+# Clean tissue names and remove duplicate rows (one row per tissue)
+per_tissue_summary_wide$Tissue <- trimws(as.character(per_tissue_summary_wide$Tissue))
+# Remove duplicate tissue rows (keep first) - robust base-R fallback
+per_tissue_summary_wide <- per_tissue_summary_wide[!duplicated(as.character(per_tissue_summary_wide$Tissue)), ]
+
+write.csv(per_tissue_summary_wide, file = "out/HCA_per_tissue_summary_wide.csv", row.names = FALSE)
+log_message("Saved wide per-tissue summary (pct exclude NA) to out/HCA_per_tissue_summary_wide.csv")
+
+log_message("✓ Statistical analysis against global reference completed")
+log_message("✓ Equity metrics against global reference calculated")
+log_message("✓ Global reference comparison visualizations completed")
 
 # Save the workspace for further analysis
 save.image("out/HCA_equity_bias_analysis_workspace.RData")

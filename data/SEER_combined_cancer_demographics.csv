@@ -1,0 +1,173 @@
+CancerType,Measure,Group,Value,Source
+Bones and Joints,Ancestry,Non-Hispanic American Indian/Alaska Native,0.9,SEER*Explorer 2018-2022
+Brain and Other Nervous System,Ancestry,Non-Hispanic American Indian/Alaska Native,4.8,SEER*Explorer 2018-2022
+Female Breast,Ancestry,Non-Hispanic American Indian/Alaska Native,116.7,SEER*Explorer 2018-2022
+Cervix Uteri,Ancestry,Non-Hispanic American Indian/Alaska Native,10.3,SEER*Explorer 2018-2022
+Colon and Rectum (including Appendix),Ancestry,Non-Hispanic American Indian/Alaska Native,50.4,SEER*Explorer 2018-2022
+Colon and Rectum (excluding Appendix),Ancestry,Non-Hispanic American Indian/Alaska Native,48.5,SEER*Explorer 2018-2022
+Leukemia,Ancestry,Non-Hispanic American Indian/Alaska Native,12.3,SEER*Explorer 2018-2022
+Liver and Intrahepatic Bile Duct,Ancestry,Non-Hispanic American Indian/Alaska Native,17.3,SEER*Explorer 2018-2022
+Lung and Bronchus,Ancestry,Non-Hispanic American Indian/Alaska Native,48.8,SEER*Explorer 2018-2022
+Melanoma of the Skin,Ancestry,Non-Hispanic American Indian/Alaska Native,9.1,SEER*Explorer 2018-2022
+Myeloma,Ancestry,Non-Hispanic American Indian/Alaska Native,7.1,SEER*Explorer 2018-2022
+Non-Hodgkin Lymphoma,Ancestry,Non-Hispanic American Indian/Alaska Native,14.8,SEER*Explorer 2018-2022
+Ovary,Ancestry,Non-Hispanic American Indian/Alaska Native,11.4,SEER*Explorer 2018-2022
+Pancreas,Ancestry,Non-Hispanic American Indian/Alaska Native,12.5,SEER*Explorer 2018-2022
+Data Source:,Ancestry,Non-Hispanic American Indian/Alaska Native,,SEER*Explorer 2018-2022
+"-SEER Incidence Data, November 2024 Submission (1975-2022), SEER 21 registries [https://seer.cancer.gov/registries/terms.html].",Ancestry,Non-Hispanic American Indian/Alaska Native,,SEER*Explorer 2018-2022
+Methodology:,Ancestry,Non-Hispanic American Indian/Alaska Native,,SEER*Explorer 2018-2022
+"-Rates are per 100,000 and are age-adjusted to the 2000 US Std Population (20 age groups - Census P25-1130).",Ancestry,Non-Hispanic American Indian/Alaska Native,,SEER*Explorer 2018-2022
+Race/Ethnicity Coding:,Ancestry,Non-Hispanic American Indian/Alaska Native,,SEER*Explorer 2018-2022
+"-For more details on SEER race/ethnicity groupings, please see Race and Hispanic Ethnicity Changes [https://seer.cancer.gov/seerstat/variables/seer/race_ethnicity/].",Ancestry,Non-Hispanic American Indian/Alaska Native,,SEER*Explorer 2018-2022
+-Rates for American Indians/Alaska Natives only include cases that are in a Purchased/Referred Care Delivery Area (PRCDA). ,Ancestry,Non-Hispanic American Indian/Alaska Native,,SEER*Explorer 2018-2022
+-Incidence data for Hispanics and Non-Hispanics are based on the NAACCR Hispanic Latino Identification Algorithm (NHIA). ,Ancestry,Non-Hispanic American Indian/Alaska Native,,SEER*Explorer 2018-2022
+Cancer Site Coding:,Ancestry,Non-Hispanic American Indian/Alaska Native,,SEER*Explorer 2018-2022
+-See SEER*Explorer Cancer Site Definitions [https://seer.cancer.gov/statistics-network/explorer/cancer-sites.html] for details about the cancer site coding used for SEER Incidence data.,Ancestry,Non-Hispanic American Indian/Alaska Native,,SEER*Explorer 2018-2022
+Created by https://seer.cancer.gov/statistics-network/explorer/ on Thu Aug 14 2025.,Ancestry,Non-Hispanic American Indian/Alaska Native,,SEER*Explorer 2018-2022
+Bones and Joints,Ancestry,Non-Hispanic Asian/Pacific Islander,0.9,SEER*Explorer 2018-2022
+Brain and Other Nervous System,Ancestry,Non-Hispanic Asian/Pacific Islander,4.0,SEER*Explorer 2018-2022
+Female Breast,Ancestry,Non-Hispanic Asian/Pacific Islander,114.3,SEER*Explorer 2018-2022
+Cervix Uteri,Ancestry,Non-Hispanic Asian/Pacific Islander,6.0,SEER*Explorer 2018-2022
+Colon and Rectum (including Appendix),Ancestry,Non-Hispanic Asian/Pacific Islander,30.0,SEER*Explorer 2018-2022
+Colon and Rectum (excluding Appendix),Ancestry,Non-Hispanic Asian/Pacific Islander,29.1,SEER*Explorer 2018-2022
+Leukemia,Ancestry,Non-Hispanic Asian/Pacific Islander,8.3,SEER*Explorer 2018-2022
+Liver and Intrahepatic Bile Duct,Ancestry,Non-Hispanic Asian/Pacific Islander,11.2,SEER*Explorer 2018-2022
+Lung and Bronchus,Ancestry,Non-Hispanic Asian/Pacific Islander,33.4,SEER*Explorer 2018-2022
+Melanoma of the Skin,Ancestry,Non-Hispanic Asian/Pacific Islander,1.2,SEER*Explorer 2018-2022
+Myeloma,Ancestry,Non-Hispanic Asian/Pacific Islander,4.1,SEER*Explorer 2018-2022
+Non-Hodgkin Lymphoma,Ancestry,Non-Hispanic Asian/Pacific Islander,13.8,SEER*Explorer 2018-2022
+Ovary,Ancestry,Non-Hispanic Asian/Pacific Islander,9.6,SEER*Explorer 2018-2022
+Pancreas,Ancestry,Non-Hispanic Asian/Pacific Islander,10.4,SEER*Explorer 2018-2022
+Data Source:,Ancestry,Non-Hispanic Asian/Pacific Islander,,SEER*Explorer 2018-2022
+"-SEER Incidence Data, November 2024 Submission (1975-2022), SEER 21 registries [https://seer.cancer.gov/registries/terms.html].",Ancestry,Non-Hispanic Asian/Pacific Islander,,SEER*Explorer 2018-2022
+Methodology:,Ancestry,Non-Hispanic Asian/Pacific Islander,,SEER*Explorer 2018-2022
+"-Rates are per 100,000 and are age-adjusted to the 2000 US Std Population (20 age groups - Census P25-1130).",Ancestry,Non-Hispanic Asian/Pacific Islander,,SEER*Explorer 2018-2022
+Race/Ethnicity Coding:,Ancestry,Non-Hispanic Asian/Pacific Islander,,SEER*Explorer 2018-2022
+"-For more details on SEER race/ethnicity groupings, please see Race and Hispanic Ethnicity Changes [https://seer.cancer.gov/seerstat/variables/seer/race_ethnicity/].",Ancestry,Non-Hispanic Asian/Pacific Islander,,SEER*Explorer 2018-2022
+-Rates for American Indians/Alaska Natives only include cases that are in a Purchased/Referred Care Delivery Area (PRCDA). ,Ancestry,Non-Hispanic Asian/Pacific Islander,,SEER*Explorer 2018-2022
+-Incidence data for Hispanics and Non-Hispanics are based on the NAACCR Hispanic Latino Identification Algorithm (NHIA). ,Ancestry,Non-Hispanic Asian/Pacific Islander,,SEER*Explorer 2018-2022
+Cancer Site Coding:,Ancestry,Non-Hispanic Asian/Pacific Islander,,SEER*Explorer 2018-2022
+-See SEER*Explorer Cancer Site Definitions [https://seer.cancer.gov/statistics-network/explorer/cancer-sites.html] for details about the cancer site coding used for SEER Incidence data.,Ancestry,Non-Hispanic Asian/Pacific Islander,,SEER*Explorer 2018-2022
+Created by https://seer.cancer.gov/statistics-network/explorer/ on Thu Aug 14 2025.,Ancestry,Non-Hispanic Asian/Pacific Islander,,SEER*Explorer 2018-2022
+Bones and Joints,Ancestry,Non-Hispanic Black,0.8,SEER*Explorer 2018-2022
+Brain and Other Nervous System,Ancestry,Non-Hispanic Black,4.0,SEER*Explorer 2018-2022
+Female Breast,Ancestry,Non-Hispanic Black,131.0,SEER*Explorer 2018-2022
+Cervix Uteri,Ancestry,Non-Hispanic Black,8.4,SEER*Explorer 2018-2022
+Colon and Rectum (including Appendix),Ancestry,Non-Hispanic Black,42.5,SEER*Explorer 2018-2022
+Colon and Rectum (excluding Appendix),Ancestry,Non-Hispanic Black,41.1,SEER*Explorer 2018-2022
+Leukemia,Ancestry,Non-Hispanic Black,11.4,SEER*Explorer 2018-2022
+Liver and Intrahepatic Bile Duct,Ancestry,Non-Hispanic Black,10.0,SEER*Explorer 2018-2022
+Lung and Bronchus,Ancestry,Non-Hispanic Black,52.0,SEER*Explorer 2018-2022
+Melanoma of the Skin,Ancestry,Non-Hispanic Black,0.9,SEER*Explorer 2018-2022
+Myeloma,Ancestry,Non-Hispanic Black,14.8,SEER*Explorer 2018-2022
+Non-Hodgkin Lymphoma,Ancestry,Non-Hispanic Black,14.2,SEER*Explorer 2018-2022
+Ovary,Ancestry,Non-Hispanic Black,9.2,SEER*Explorer 2018-2022
+Pancreas,Ancestry,Non-Hispanic Black,16.5,SEER*Explorer 2018-2022
+Data Source:,Ancestry,Non-Hispanic Black,,SEER*Explorer 2018-2022
+"-SEER Incidence Data, November 2024 Submission (1975-2022), SEER 21 registries [https://seer.cancer.gov/registries/terms.html].",Ancestry,Non-Hispanic Black,,SEER*Explorer 2018-2022
+Methodology:,Ancestry,Non-Hispanic Black,,SEER*Explorer 2018-2022
+"-Rates are per 100,000 and are age-adjusted to the 2000 US Std Population (20 age groups - Census P25-1130).",Ancestry,Non-Hispanic Black,,SEER*Explorer 2018-2022
+Race/Ethnicity Coding:,Ancestry,Non-Hispanic Black,,SEER*Explorer 2018-2022
+"-For more details on SEER race/ethnicity groupings, please see Race and Hispanic Ethnicity Changes [https://seer.cancer.gov/seerstat/variables/seer/race_ethnicity/].",Ancestry,Non-Hispanic Black,,SEER*Explorer 2018-2022
+-Rates for American Indians/Alaska Natives only include cases that are in a Purchased/Referred Care Delivery Area (PRCDA). ,Ancestry,Non-Hispanic Black,,SEER*Explorer 2018-2022
+-Incidence data for Hispanics and Non-Hispanics are based on the NAACCR Hispanic Latino Identification Algorithm (NHIA). ,Ancestry,Non-Hispanic Black,,SEER*Explorer 2018-2022
+Cancer Site Coding:,Ancestry,Non-Hispanic Black,,SEER*Explorer 2018-2022
+-See SEER*Explorer Cancer Site Definitions [https://seer.cancer.gov/statistics-network/explorer/cancer-sites.html] for details about the cancer site coding used for SEER Incidence data.,Ancestry,Non-Hispanic Black,,SEER*Explorer 2018-2022
+Created by https://seer.cancer.gov/statistics-network/explorer/ on Thu Aug 14 2025.,Ancestry,Non-Hispanic Black,,SEER*Explorer 2018-2022
+Bones and Joints,Ancestry,Non-Hispanic White,1.1,SEER*Explorer 2018-2022
+Brain and Other Nervous System,Ancestry,Non-Hispanic White,7.2,SEER*Explorer 2018-2022
+Female Breast,Ancestry,Non-Hispanic White,140.0,SEER*Explorer 2018-2022
+Cervix Uteri,Ancestry,Non-Hispanic White,6.9,SEER*Explorer 2018-2022
+Colon and Rectum (including Appendix),Ancestry,Non-Hispanic White,37.6,SEER*Explorer 2018-2022
+Colon and Rectum (excluding Appendix),Ancestry,Non-Hispanic White,35.4,SEER*Explorer 2018-2022
+Leukemia,Ancestry,Non-Hispanic White,15.9,SEER*Explorer 2018-2022
+Liver and Intrahepatic Bile Duct,Ancestry,Non-Hispanic White,7.6,SEER*Explorer 2018-2022
+Lung and Bronchus,Ancestry,Non-Hispanic White,54.2,SEER*Explorer 2018-2022
+Melanoma of the Skin,Ancestry,Non-Hispanic White,32.3,SEER*Explorer 2018-2022
+Myeloma,Ancestry,Non-Hispanic White,6.5,SEER*Explorer 2018-2022
+Non-Hodgkin Lymphoma,Ancestry,Non-Hispanic White,20.1,SEER*Explorer 2018-2022
+Ovary,Ancestry,Non-Hispanic White,10.4,SEER*Explorer 2018-2022
+Pancreas,Ancestry,Non-Hispanic White,14.0,SEER*Explorer 2018-2022
+Data Source:,Ancestry,Non-Hispanic White,,SEER*Explorer 2018-2022
+"-SEER Incidence Data, November 2024 Submission (1975-2022), SEER 21 registries [https://seer.cancer.gov/registries/terms.html].",Ancestry,Non-Hispanic White,,SEER*Explorer 2018-2022
+Methodology:,Ancestry,Non-Hispanic White,,SEER*Explorer 2018-2022
+"-Rates are per 100,000 and are age-adjusted to the 2000 US Std Population (20 age groups - Census P25-1130).",Ancestry,Non-Hispanic White,,SEER*Explorer 2018-2022
+Race/Ethnicity Coding:,Ancestry,Non-Hispanic White,,SEER*Explorer 2018-2022
+"-For more details on SEER race/ethnicity groupings, please see Race and Hispanic Ethnicity Changes [https://seer.cancer.gov/seerstat/variables/seer/race_ethnicity/].",Ancestry,Non-Hispanic White,,SEER*Explorer 2018-2022
+-Rates for American Indians/Alaska Natives only include cases that are in a Purchased/Referred Care Delivery Area (PRCDA). ,Ancestry,Non-Hispanic White,,SEER*Explorer 2018-2022
+-Incidence data for Hispanics and Non-Hispanics are based on the NAACCR Hispanic Latino Identification Algorithm (NHIA). ,Ancestry,Non-Hispanic White,,SEER*Explorer 2018-2022
+Cancer Site Coding:,Ancestry,Non-Hispanic White,,SEER*Explorer 2018-2022
+-See SEER*Explorer Cancer Site Definitions [https://seer.cancer.gov/statistics-network/explorer/cancer-sites.html] for details about the cancer site coding used for SEER Incidence data.,Ancestry,Non-Hispanic White,,SEER*Explorer 2018-2022
+Created by https://seer.cancer.gov/statistics-network/explorer/ on Thu Aug 14 2025.,Ancestry,Non-Hispanic White,,SEER*Explorer 2018-2022
+Bones and Joints,Sex,Female,0.9,SEER*Explorer 2018-2022
+Brain and Other Nervous System,Sex,Female,5.2,SEER*Explorer 2018-2022
+Female Breast,Sex,Female,130.8,SEER*Explorer 2018-2022
+Cervix Uteri,Sex,Female,7.7,SEER*Explorer 2018-2022
+Colon and Rectum (including Appendix),Sex,Female,32.6,SEER*Explorer 2018-2022
+Colon and Rectum (excluding Appendix),Sex,Female,30.5,SEER*Explorer 2018-2022
+Leukemia,Sex,Female,11.3,SEER*Explorer 2018-2022
+Liver and Intrahepatic Bile Duct,Sex,Female,5.5,SEER*Explorer 2018-2022
+Lung and Bronchus,Sex,Female,43.9,SEER*Explorer 2018-2022
+Melanoma of the Skin,Sex,Female,17.5,SEER*Explorer 2018-2022
+Myeloma,Sex,Female,6.1,SEER*Explorer 2018-2022
+Non-Hodgkin Lymphoma,Sex,Female,15.7,SEER*Explorer 2018-2022
+Ovary,Sex,Female,10.3,SEER*Explorer 2018-2022
+Pancreas,Sex,Female,12.3,SEER*Explorer 2018-2022
+Data Source:,Sex,Female,,SEER*Explorer 2018-2022
+"-SEER Incidence Data, November 2024 Submission (1975-2022), SEER 21 registries [https://seer.cancer.gov/registries/terms.html].",Sex,Female,,SEER*Explorer 2018-2022
+Methodology:,Sex,Female,,SEER*Explorer 2018-2022
+"-Rates are per 100,000 and are age-adjusted to the 2000 US Std Population (20 age groups - Census P25-1130).",Sex,Female,,SEER*Explorer 2018-2022
+Race/Ethnicity Coding:,Sex,Female,,SEER*Explorer 2018-2022
+"-For more details on SEER race/ethnicity groupings, please see Race and Hispanic Ethnicity Changes [https://seer.cancer.gov/seerstat/variables/seer/race_ethnicity/].",Sex,Female,,SEER*Explorer 2018-2022
+-Rates for American Indians/Alaska Natives only include cases that are in a Purchased/Referred Care Delivery Area (PRCDA). ,Sex,Female,,SEER*Explorer 2018-2022
+-Incidence data for Hispanics and Non-Hispanics are based on the NAACCR Hispanic Latino Identification Algorithm (NHIA). ,Sex,Female,,SEER*Explorer 2018-2022
+Cancer Site Coding:,Sex,Female,,SEER*Explorer 2018-2022
+-See SEER*Explorer Cancer Site Definitions [https://seer.cancer.gov/statistics-network/explorer/cancer-sites.html] for details about the cancer site coding used for SEER Incidence data.,Sex,Female,,SEER*Explorer 2018-2022
+Created by https://seer.cancer.gov/statistics-network/explorer/ on Thu Aug 14 2025.,Sex,Female,,SEER*Explorer 2018-2022
+Bones and Joints,Sex,Male,1.2,SEER*Explorer 2018-2022
+Brain and Other Nervous System,Sex,Male,7.2,SEER*Explorer 2018-2022
+Colon and Rectum (including Appendix),Sex,Male,42.3,SEER*Explorer 2018-2022
+Colon and Rectum (excluding Appendix),Sex,Male,40.7,SEER*Explorer 2018-2022
+Leukemia,Sex,Male,18.2,SEER*Explorer 2018-2022
+Liver and Intrahepatic Bile Duct,Sex,Male,13.9,SEER*Explorer 2018-2022
+Lung and Bronchus,Sex,Male,53.1,SEER*Explorer 2018-2022
+Melanoma of the Skin,Sex,Male,27.8,SEER*Explorer 2018-2022
+Myeloma,Sex,Male,8.8,SEER*Explorer 2018-2022
+Non-Hodgkin Lymphoma,Sex,Male,22.4,SEER*Explorer 2018-2022
+Pancreas,Sex,Male,15.5,SEER*Explorer 2018-2022
+Data Source:,Sex,Male,,SEER*Explorer 2018-2022
+"-SEER Incidence Data, November 2024 Submission (1975-2022), SEER 21 registries [https://seer.cancer.gov/registries/terms.html].",Sex,Male,,SEER*Explorer 2018-2022
+Methodology:,Sex,Male,,SEER*Explorer 2018-2022
+"-Rates are per 100,000 and are age-adjusted to the 2000 US Std Population (20 age groups - Census P25-1130).",Sex,Male,,SEER*Explorer 2018-2022
+Race/Ethnicity Coding:,Sex,Male,,SEER*Explorer 2018-2022
+"-For more details on SEER race/ethnicity groupings, please see Race and Hispanic Ethnicity Changes [https://seer.cancer.gov/seerstat/variables/seer/race_ethnicity/].",Sex,Male,,SEER*Explorer 2018-2022
+-Rates for American Indians/Alaska Natives only include cases that are in a Purchased/Referred Care Delivery Area (PRCDA). ,Sex,Male,,SEER*Explorer 2018-2022
+-Incidence data for Hispanics and Non-Hispanics are based on the NAACCR Hispanic Latino Identification Algorithm (NHIA). ,Sex,Male,,SEER*Explorer 2018-2022
+Cancer Site Coding:,Sex,Male,,SEER*Explorer 2018-2022
+-See SEER*Explorer Cancer Site Definitions [https://seer.cancer.gov/statistics-network/explorer/cancer-sites.html] for details about the cancer site coding used for SEER Incidence data.,Sex,Male,,SEER*Explorer 2018-2022
+Created by https://seer.cancer.gov/statistics-network/explorer/ on Thu Aug 14 2025.,Sex,Male,,SEER*Explorer 2018-2022
+Bones and Joints,Ancestry,Hispanic (any race),1.0,SEER*Explorer 2018-2022
+Brain and Other Nervous System,Ancestry,Hispanic (any race),5.2,SEER*Explorer 2018-2022
+Female Breast,Ancestry,Hispanic (any race),104.0,SEER*Explorer 2018-2022
+Cervix Uteri,Ancestry,Hispanic (any race),10.0,SEER*Explorer 2018-2022
+Colon and Rectum (including Appendix),Ancestry,Hispanic (any race),34.2,SEER*Explorer 2018-2022
+Colon and Rectum (excluding Appendix),Ancestry,Hispanic (any race),32.9,SEER*Explorer 2018-2022
+Leukemia,Ancestry,Hispanic (any race),11.6,SEER*Explorer 2018-2022
+Liver and Intrahepatic Bile Duct,Ancestry,Hispanic (any race),15.0,SEER*Explorer 2018-2022
+Lung and Bronchus,Ancestry,Hispanic (any race),26.0,SEER*Explorer 2018-2022
+Melanoma of the Skin,Ancestry,Hispanic (any race),4.6,SEER*Explorer 2018-2022
+Myeloma,Ancestry,Hispanic (any race),6.8,SEER*Explorer 2018-2022
+Non-Hodgkin Lymphoma,Ancestry,Hispanic (any race),17.6,SEER*Explorer 2018-2022
+Ovary,Ancestry,Hispanic (any race),10.2,SEER*Explorer 2018-2022
+Pancreas,Ancestry,Hispanic (any race),12.6,SEER*Explorer 2018-2022
+Data Source:,Ancestry,Hispanic (any race),,SEER*Explorer 2018-2022
+"-SEER Incidence Data, November 2024 Submission (1975-2022), SEER 21 registries [https://seer.cancer.gov/registries/terms.html].",Ancestry,Hispanic (any race),,SEER*Explorer 2018-2022
+Methodology:,Ancestry,Hispanic (any race),,SEER*Explorer 2018-2022
+"-Rates are per 100,000 and are age-adjusted to the 2000 US Std Population (20 age groups - Census P25-1130).",Ancestry,Hispanic (any race),,SEER*Explorer 2018-2022
+Race/Ethnicity Coding:,Ancestry,Hispanic (any race),,SEER*Explorer 2018-2022
+"-For more details on SEER race/ethnicity groupings, please see Race and Hispanic Ethnicity Changes [https://seer.cancer.gov/seerstat/variables/seer/race_ethnicity/].",Ancestry,Hispanic (any race),,SEER*Explorer 2018-2022
+-Rates for American Indians/Alaska Natives only include cases that are in a Purchased/Referred Care Delivery Area (PRCDA). ,Ancestry,Hispanic (any race),,SEER*Explorer 2018-2022
+-Incidence data for Hispanics and Non-Hispanics are based on the NAACCR Hispanic Latino Identification Algorithm (NHIA). ,Ancestry,Hispanic (any race),,SEER*Explorer 2018-2022
+Cancer Site Coding:,Ancestry,Hispanic (any race),,SEER*Explorer 2018-2022
+-See SEER*Explorer Cancer Site Definitions [https://seer.cancer.gov/statistics-network/explorer/cancer-sites.html] for details about the cancer site coding used for SEER Incidence data.,Ancestry,Hispanic (any race),,SEER*Explorer 2018-2022
+Created by https://seer.cancer.gov/statistics-network/explorer/ on Thu Aug 14 2025.,Ancestry,Hispanic (any race),,SEER*Explorer 2018-2022
