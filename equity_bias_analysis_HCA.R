@@ -160,14 +160,14 @@ p1 <- ggplot(data = subset(ancestry_summary, !is.na(Ancestry)),
   labs(title = "HCA: Sample Distribution by Ancestry",
        x = "Ancestry Group", 
        y = "Number of Samples") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
-        axis.text.y = element_text(size = 12),
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+        axis.text.y = element_text(size = 14),
         axis.title = element_text(size = 14),
         title = element_text(size = 16),
         legend.position = "none") +
   scale_fill_manual(values = ancestry_colors)
 
-ggsave("out/HCA_ancestry_distribution_barplot.pdf", p1, width = 4, height = 3)
+ggsave("out/HCA_ancestry_distribution_barplot.pdf", p1, width = 3, height = 2.5)
 log_message("Saved: HCA_ancestry_distribution_barplot.pdf")
 
 # Pie chart for ancestry
@@ -178,10 +178,10 @@ p2 <- ggplot(data = subset(ancestry_summary, !is.na(Ancestry)),
   theme_void(base_size = 14) +
   labs(title = "HCA: Ancestry Distribution (Pie Chart)") +
   theme(title = element_text(size = 16),
-        legend.text = element_text(size = 12)) +
+        legend.text = element_text(size = 14)) +
   scale_fill_manual(values = ancestry_colors)
 
-ggsave("out/HCA_ancestry_distribution_pie.pdf", p2, width = 4, height = 3)
+ggsave("out/HCA_ancestry_distribution_pie.pdf", p2, width = 3, height = 2.5)
 log_message("Saved: HCA_ancestry_distribution_pie.pdf")
 
 # ============================================================================
@@ -225,15 +225,15 @@ if(nrow(plot_data) > 0) {
          x = "Ancestry Group",
          y = "Number of Samples",
          fill = "Sex") +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
-          axis.text.y = element_text(size = 12),
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+          axis.text.y = element_text(size = 14),
           axis.title = element_text(size = 14),
           title = element_text(size = 16),
-          legend.text = element_text(size = 12),
+          legend.text = element_text(size = 14),
           legend.title = element_text(size = 14)) +
     scale_fill_manual(values = sex_colors)
 
-  ggsave("out/HCA_gender_by_ancestry_barplot.pdf", p3, width = 5, height = 3)
+  ggsave("out/HCA_gender_by_ancestry_barplot.pdf", p3, width = 4, height = 2.5)
   log_message("Saved: HCA_gender_by_ancestry_barplot.pdf")
 
   # Stacked proportional bar chart
@@ -244,16 +244,16 @@ if(nrow(plot_data) > 0) {
          x = "Ancestry Group",
          y = "Proportion",
          fill = "Sex") +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
-          axis.text.y = element_text(size = 12),
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+          axis.text.y = element_text(size = 14),
           axis.title = element_text(size = 14),
           title = element_text(size = 16),
-          legend.text = element_text(size = 12),
+          legend.text = element_text(size = 14),
           legend.title = element_text(size = 14)) +
     scale_fill_manual(values = sex_colors) +
     scale_y_continuous(labels = scales::percent)
 
-  ggsave("out/HCA_gender_proportions_by_ancestry.pdf", p4, width = 5, height = 3)
+  ggsave("out/HCA_gender_proportions_by_ancestry.pdf", p4, width = 4, height = 2.5)
   log_message("Saved: HCA_gender_proportions_by_ancestry.pdf")
 } else {
   log_message("Insufficient data for gender by ancestry visualization")
@@ -301,19 +301,19 @@ if(nrow(intersectional_data) > 0) {
 
   p5 <- ggplot(heatmap_data, aes(x = Gender_clean, y = Race_clean, fill = n)) +
     geom_tile(color = "white") +
-    geom_text(aes(label = n), color = "white", size = 5) +
+    geom_text(aes(label = n), color = "white", size = 6) +
     scale_fill_gradient(low = "lightblue", high = "darkblue", name = "Count") +
     theme_minimal(base_size = 14) +
     labs(title = "HCA: Sample Count Heatmap (Ancestry × Gender)",
          x = "Gender", y = "Ancestry") +
-    theme(axis.text.x = element_text(angle = 0, size = 12),
-          axis.text.y = element_text(size = 12),
+    theme(axis.text.x = element_text(angle = 0, size = 14),
+          axis.text.y = element_text(size = 14),
           axis.title = element_text(size = 14),
           title = element_text(size = 16),
-          legend.text = element_text(size = 12),
+          legend.text = element_text(size = 14),
           legend.title = element_text(size = 14))
 
-  ggsave("out/HCA_intersectional_heatmap.pdf", p5, width = 4, height = 3)
+  ggsave("out/HCA_intersectional_heatmap.pdf", p5, width = 3, height = 2.5)
   log_message("Saved: HCA_intersectional_heatmap.pdf")
 } else {
   log_message("Insufficient data for intersectional analysis")
@@ -345,16 +345,16 @@ if(nrow(tissue_ancestry_data) > 0) {
          x = "Tissue Type",
          y = "Proportion",
          fill = "Ancestry") +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
-          axis.text.y = element_text(size = 12),
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+          axis.text.y = element_text(size = 14),
           axis.title = element_text(size = 14),
           title = element_text(size = 16),
-          legend.text = element_text(size = 12),
+          legend.text = element_text(size = 14),
           legend.title = element_text(size = 14)) +
     scale_fill_manual(values = ancestry_colors) +
     scale_y_continuous(labels = scales::percent)
 
-  ggsave("out/HCA_tissue_types_by_ancestry_stacked.pdf", p6, width = 10, height = 4)
+  ggsave("out/HCA_tissue_types_by_ancestry_stacked.pdf", p6, width = 8, height = 6)
   log_message("Saved: HCA_tissue_types_by_ancestry_stacked.pdf")
 } else {
   log_message("Insufficient data for tissue by ancestry analysis")
@@ -380,16 +380,16 @@ if(nrow(tissue_sex_data) > 0) {
          x = "Tissue Type",
          y = "Proportion",
          fill = "Sex") +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
-          axis.text.y = element_text(size = 12),
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+          axis.text.y = element_text(size = 14),
           axis.title = element_text(size = 14),
           title = element_text(size = 16),
-          legend.text = element_text(size = 12),
+          legend.text = element_text(size = 14),
           legend.title = element_text(size = 14)) +
     scale_fill_manual(values = sex_colors) +
     scale_y_continuous(labels = scales::percent)
 
-  ggsave("out/HCA_tissue_types_by_sex_stacked.pdf", p7, width = 10, height = 4)
+  ggsave("out/HCA_tissue_types_by_sex_stacked.pdf", p7, width = 8, height = 6)
   log_message("Saved: HCA_tissue_types_by_sex_stacked.pdf")
 } else {
   log_message("Insufficient data for tissue by sex analysis")
@@ -405,18 +405,18 @@ tissue_dist_data <- data %>%
 p8 <- ggplot(tissue_dist_data, aes(x = reorder(Tissue_Type, -n), y = n)) +
   geom_bar(stat = "identity", fill = "steelblue") +
   geom_text(aes(label = paste0(n, "\n(", percentage, "%)")),
-            vjust = -0.5, size = 3) +
+            vjust = -0.5, size = 4) +
   theme_minimal(base_size = 14) +
   labs(title = "HCA: Tissue Type Distribution",
        x = "Tissue Type",
        y = "Number of Samples") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
-        axis.text.y = element_text(size = 12),
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+        axis.text.y = element_text(size = 14),
         axis.title = element_text(size = 14),
         title = element_text(size = 16)) +
   scale_y_continuous(expand = expansion(mult = c(0, 0.15)))
 
-ggsave("out/HCA_tissue_type_distribution.pdf", p8, width = 10, height = 6)
+ggsave("out/HCA_tissue_type_distribution.pdf", p8, width = 5, height = 3.5)
 log_message("Saved: HCA_tissue_type_distribution.pdf")
 
 # ============================================================================
@@ -591,15 +591,15 @@ if(exists("equity_metrics_global") && nrow(equity_metrics_global) > 0) {
          x = "Ancestry Group", 
          y = "Percentage (%)",
          fill = "Data Source") +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
-          axis.text.y = element_text(size = 12),
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+          axis.text.y = element_text(size = 14),
           axis.title = element_text(size = 14),
           title = element_text(size = 16),
-          legend.text = element_text(size = 12),
+          legend.text = element_text(size = 14),
           legend.title = element_text(size = 14)) +
     scale_fill_manual(values = c("HCA Dataset" = "steelblue", "Global Reference" = "darkred"))
 
-  ggsave("out/HCA_ancestry_vs_global_reference.pdf", p9, width = 8, height = 5)
+  ggsave("out/HCA_ancestry_vs_global_reference.pdf", p9, width = 5, height = 4.5)
   log_message("Saved: HCA_ancestry_vs_global_reference.pdf")
   
   # Create global reference barplot in same format as HCA
@@ -612,14 +612,14 @@ if(exists("equity_metrics_global") && nrow(equity_metrics_global) > 0) {
     labs(title = "Global Reference: Sample Distribution by Ancestry",
          x = "Ancestry Group", 
          y = "Percentage (%)") +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
-          axis.text.y = element_text(size = 12),
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+          axis.text.y = element_text(size = 14),
           axis.title = element_text(size = 14),
           title = element_text(size = 16),
           legend.position = "none") +
     scale_fill_manual(values = ancestry_colors)
 
-  ggsave("out/Global_reference_ancestry_distribution_barplot.pdf", p10, width = 4, height = 3)
+  ggsave("out/Global_reference_ancestry_distribution_barplot.pdf", p10, width = 3, height = 3.5)
   log_message("Saved: Global_reference_ancestry_distribution_barplot.pdf")
 }
 
@@ -646,15 +646,15 @@ if(nrow(sex_data) > 0) {
          x = "Sex", 
          y = "Percentage (%)",
          fill = "Data Source") +
-    theme(axis.text.x = element_text(angle = 0, size = 12),
-          axis.text.y = element_text(size = 12),
+    theme(axis.text.x = element_text(angle = 0, size = 14),
+          axis.text.y = element_text(size = 14),
           axis.title = element_text(size = 14),
           title = element_text(size = 16),
-          legend.text = element_text(size = 12),
+          legend.text = element_text(size = 14),
           legend.title = element_text(size = 14)) +
     scale_fill_manual(values = c("HCA Dataset" = "steelblue", "Global Reference" = "darkred"))
 
-  ggsave("out/HCA_sex_vs_global_reference.pdf", p11, width = 6, height = 4)
+  ggsave("out/HCA_sex_vs_global_reference.pdf", p11, width = 5, height = 3.5)
   log_message("Saved: HCA_sex_vs_global_reference.pdf")
   
   # Create global reference barplot for sex in same format as HCA
@@ -664,14 +664,14 @@ if(nrow(sex_data) > 0) {
     labs(title = "Global Reference: Sex Distribution",
          x = "Sex", 
          y = "Percentage (%)") +
-    theme(axis.text.x = element_text(angle = 0, size = 12),
-          axis.text.y = element_text(size = 12),
+    theme(axis.text.x = element_text(angle = 0, size = 14),
+          axis.text.y = element_text(size = 14),
           axis.title = element_text(size = 14),
           title = element_text(size = 16),
           legend.position = "none") +
     scale_fill_manual(values = sex_colors)
 
-  ggsave("out/Global_reference_sex_distribution_barplot.pdf", p12, width = 4, height = 3)
+  ggsave("out/Global_reference_sex_distribution_barplot.pdf", p12, width = 3, height = 3.5)
   log_message("Saved: Global_reference_sex_distribution_barplot.pdf")
 }
 

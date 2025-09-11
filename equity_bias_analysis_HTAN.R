@@ -149,14 +149,14 @@ p1 <- ggplot(data = subset(ancestry_summary, !is.na(Ancestry)),
   labs(title = "HTAN: Sample Distribution by Ancestry",
        x = "Ancestry Group", 
        y = "Number of Samples") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
-        axis.text.y = element_text(size = 12),
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+        axis.text.y = element_text(size = 14),
         axis.title = element_text(size = 14),
         title = element_text(size = 16),
         legend.position = "none") +
   scale_fill_manual(values = ancestry_colors)
 
-ggsave("out/HTAN_ancestry_distribution_barplot.pdf", p1, width = 4, height = 3)
+ggsave("out/HTAN_ancestry_distribution_barplot.pdf", p1, width = 3, height = 2.5)
 log_message("Saved: HTAN_ancestry_distribution_barplot.pdf")
 
 # Pie chart for ancestry
@@ -167,10 +167,10 @@ p2 <- ggplot(data = subset(ancestry_summary, !is.na(Ancestry)),
   theme_void(base_size = 14) +
   labs(title = "HTAN: Ancestry Distribution (Pie Chart)") +
   theme(title = element_text(size = 16),
-        legend.text = element_text(size = 12)) +
+        legend.text = element_text(size = 14)) +
   scale_fill_manual(values = ancestry_colors)
 
-ggsave("out/HTAN_ancestry_distribution_pie.pdf", p2, width = 4, height = 3)
+ggsave("out/HTAN_ancestry_distribution_pie.pdf", p2, width = 3, height = 2.5)
 log_message("Saved: HTAN_ancestry_distribution_pie.pdf")
 
 # ============================================================================
@@ -213,15 +213,15 @@ p3 <- ggplot(plot_data, aes(x = Race_clean, y = n, fill = Gender_clean)) +
        x = "Ancestry Group",
        y = "Number of Samples",
        fill = "Sex") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
-        axis.text.y = element_text(size = 12),
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+        axis.text.y = element_text(size = 14),
         axis.title = element_text(size = 14),
         title = element_text(size = 16),
-        legend.text = element_text(size = 12),
+        legend.text = element_text(size = 14),
         legend.title = element_text(size = 14)) +
   scale_fill_manual(values = sex_colors)
 
-ggsave("out/HTAN_gender_by_ancestry_barplot.pdf", p3, width = 5, height = 3)
+ggsave("out/HTAN_gender_by_ancestry_barplot.pdf", p3, width = 4, height = 2.5)
 log_message("Saved: HTAN_gender_by_ancestry_barplot.pdf")
 
 # Stacked proportional bar chart
@@ -232,16 +232,16 @@ p4 <- ggplot(plot_data, aes(x = Race_clean, y = prop, fill = Gender_clean)) +
        x = "Ancestry Group",
        y = "Proportion",
        fill = "Sex") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
-        axis.text.y = element_text(size = 12),
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+        axis.text.y = element_text(size = 14),
         axis.title = element_text(size = 14),
         title = element_text(size = 16),
-        legend.text = element_text(size = 12),
+        legend.text = element_text(size = 14),
         legend.title = element_text(size = 14)) +
   scale_fill_manual(values = sex_colors) +
   scale_y_continuous(labels = scales::percent)
 
-ggsave("out/HTAN_gender_proportions_by_ancestry.pdf", p4, width = 5, height = 3)
+ggsave("out/HTAN_gender_proportions_by_ancestry.pdf", p4, width = 4, height = 2.5)
 log_message("Saved: HTAN_gender_proportions_by_ancestry.pdf")
 
 log_message("\n=== STEP 1-3 COMPLETED ===")
@@ -284,19 +284,19 @@ heatmap_data <- data %>%
 
 p5 <- ggplot(heatmap_data, aes(x = Gender_clean, y = Race_clean, fill = n)) +
   geom_tile(color = "white") +
-  geom_text(aes(label = n), color = "white", size = 5) +
+  geom_text(aes(label = n), color = "white", size = 6) +
   scale_fill_gradient(low = "lightblue", high = "darkblue", name = "Count") +
   theme_minimal(base_size = 14) +
   labs(title = "HTAN: Sample Count Heatmap (Ancestry × Gender)",
        x = "Gender", y = "Ancestry") +
-  theme(axis.text.x = element_text(angle = 0, size = 12),
-        axis.text.y = element_text(size = 12),
+  theme(axis.text.x = element_text(angle = 0, size = 14),
+        axis.text.y = element_text(size = 14),
         axis.title = element_text(size = 14),
         title = element_text(size = 16),
-        legend.text = element_text(size = 12),
+        legend.text = element_text(size = 14),
         legend.title = element_text(size = 14))
 
-ggsave("out/HTAN_intersectional_heatmap.pdf", p5, width = 4, height = 3)
+ggsave("out/HTAN_intersectional_heatmap.pdf", p5, width = 3, height = 2.5)
 log_message("Saved: HTAN_intersectional_heatmap.pdf")
 
 # ============================================================================
@@ -324,16 +324,16 @@ p6 <- ggplot(cancer_ancestry_data, aes(x = cancer_label, y = prop, fill = Race_c
        x = "Cancer Type",
        y = "Proportion",
        fill = "Ancestry") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
-        axis.text.y = element_text(size = 12),
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+        axis.text.y = element_text(size = 14),
         axis.title = element_text(size = 14),
         title = element_text(size = 16),
-        legend.text = element_text(size = 12),
+        legend.text = element_text(size = 14),
         legend.title = element_text(size = 14)) +
   scale_fill_manual(values = ancestry_colors) +
   scale_y_continuous(labels = scales::percent)
 
-ggsave("out/HTAN_cancer_types_by_ancestry_stacked.pdf", p6, width = 8, height = 4)
+ggsave("out/HTAN_cancer_types_by_ancestry_stacked.pdf", p6, width = 7, height = 3.5)
 log_message("Saved: HTAN_cancer_types_by_ancestry_stacked.pdf")
 
 # Cancer type distribution by sex
@@ -355,16 +355,16 @@ p7 <- ggplot(cancer_sex_data, aes(x = cancer_label, y = prop, fill = Gender_clea
        x = "Cancer Type",
        y = "Proportion",
        fill = "Sex") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
-        axis.text.y = element_text(size = 12),
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+        axis.text.y = element_text(size = 14),
         axis.title = element_text(size = 14),
         title = element_text(size = 16),
-        legend.text = element_text(size = 12),
+        legend.text = element_text(size = 14),
         legend.title = element_text(size = 14)) +
   scale_fill_manual(values = sex_colors) +
   scale_y_continuous(labels = scales::percent)
 
-ggsave("out/HTAN_cancer_types_by_sex_stacked.pdf", p7, width = 8, height = 4)
+ggsave("out/HTAN_cancer_types_by_sex_stacked.pdf", p7, width = 7, height = 3.5)
 log_message("Saved: HTAN_cancer_types_by_sex_stacked.pdf")
 
 # Overall cancer type distribution
@@ -377,18 +377,18 @@ cancer_dist_data <- data %>%
 p8 <- ggplot(cancer_dist_data, aes(x = reorder(Cancer_Type_Final, -n), y = n)) +
   geom_bar(stat = "identity", fill = "steelblue") +
   geom_text(aes(label = paste0(n, "\n(", percentage, "%)")),
-            vjust = -0.5, size = 3) +
+            vjust = -0.5, size = 4) +
   theme_minimal(base_size = 14) +
   labs(title = "HTAN: Cancer Type Distribution",
        x = "Cancer Type",
        y = "Number of Samples") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
-        axis.text.y = element_text(size = 12),
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+        axis.text.y = element_text(size = 14),
         axis.title = element_text(size = 14),
         title = element_text(size = 16)) +
   scale_y_continuous(expand = expansion(mult = c(0, 0.15)))
 
-ggsave("out/HTAN_cancer_type_distribution.pdf", p8, width = 10, height = 6)
+ggsave("out/HTAN_cancer_type_distribution.pdf", p8, width = 5, height = 3.5)
 log_message("Saved: HTAN_cancer_type_distribution.pdf")
 
 log_message("\n=== STEP 4-5 COMPLETED ===")
@@ -796,15 +796,15 @@ if(exists("equity_metrics_seer") && nrow(equity_metrics_seer) > 0) {
          x = "Ancestry Group", 
          y = "Percentage (%)",
          fill = "Data Source") +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
-          axis.text.y = element_text(size = 12),
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+          axis.text.y = element_text(size = 14),
           axis.title = element_text(size = 14),
           title = element_text(size = 16),
-          legend.text = element_text(size = 12),
+          legend.text = element_text(size = 14),
           legend.title = element_text(size = 14)) +
     scale_fill_manual(values = c("HTAN Dataset" = "steelblue", "SEER Reference" = "darkred"))
 
-  ggsave("out/HTAN_ancestry_vs_SEER_reference.pdf", p9, width = 8, height = 5)
+  ggsave("out/HTAN_ancestry_vs_SEER_reference.pdf", p9, width = 5, height = 5.5)
   log_message("Saved: HTAN_ancestry_vs_SEER_reference.pdf")
   
   # Create SEER reference barplot in same format as HTAN
@@ -817,14 +817,14 @@ if(exists("equity_metrics_seer") && nrow(equity_metrics_seer) > 0) {
     labs(title = "SEER Reference: Cancer Incidence by Ancestry",
          x = "Ancestry Group", 
          y = "Percentage (%)") +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
-          axis.text.y = element_text(size = 12),
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+          axis.text.y = element_text(size = 14),
           axis.title = element_text(size = 14),
           title = element_text(size = 16),
           legend.position = "none") +
     scale_fill_manual(values = ancestry_colors)
 
-  ggsave("out/SEER_reference_ancestry_distribution_barplot.pdf", p10, width = 4, height = 3)
+  ggsave("out/SEER_reference_ancestry_distribution_barplot.pdf", p10, width = 3, height = 3.5)
   log_message("Saved: SEER_reference_ancestry_distribution_barplot.pdf")
 }
 
@@ -851,15 +851,15 @@ if(nrow(sex_data) > 0) {
          x = "Sex", 
          y = "Percentage (%)",
          fill = "Data Source") +
-    theme(axis.text.x = element_text(angle = 0, size = 12),
-          axis.text.y = element_text(size = 12),
+    theme(axis.text.x = element_text(angle = 0, size = 14),
+          axis.text.y = element_text(size = 14),
           axis.title = element_text(size = 14),
           title = element_text(size = 16),
-          legend.text = element_text(size = 12),
+          legend.text = element_text(size = 14),
           legend.title = element_text(size = 14)) +
     scale_fill_manual(values = c("HTAN Dataset" = "steelblue", "SEER Reference" = "darkred"))
 
-  ggsave("out/HTAN_sex_vs_SEER_reference.pdf", p11, width = 6, height = 4)
+  ggsave("out/HTAN_sex_vs_SEER_reference.pdf", p11, width = 5, height = 5.5)
   log_message("Saved: HTAN_sex_vs_SEER_reference.pdf")
   
   # Create SEER reference barplot for sex in same format as HTAN
@@ -869,14 +869,14 @@ if(nrow(sex_data) > 0) {
     labs(title = "SEER Reference: Cancer Incidence by Sex",
          x = "Sex", 
          y = "Percentage (%)") +
-    theme(axis.text.x = element_text(angle = 0, size = 12),
-          axis.text.y = element_text(size = 12),
+    theme(axis.text.x = element_text(angle = 0, size = 14),
+          axis.text.y = element_text(size = 14),
           axis.title = element_text(size = 14),
           title = element_text(size = 16),
           legend.position = "none") +
     scale_fill_manual(values = sex_colors)
 
-  ggsave("out/SEER_reference_sex_distribution_barplot.pdf", p12, width = 4, height = 3)
+  ggsave("out/SEER_reference_sex_distribution_barplot.pdf", p12, width = 3, height = 3.5)
   log_message("Saved: SEER_reference_sex_distribution_barplot.pdf")
 }
 
@@ -1012,16 +1012,16 @@ if(nrow(cancer_ancestry_comparison) > 0) {
            x = "Cancer Type",
            y = "Proportion",
            fill = "Ancestry") +
-      theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
-            axis.text.y = element_text(size = 12),
+      theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+            axis.text.y = element_text(size = 14),
             axis.title = element_text(size = 14),
             title = element_text(size = 16),
-            legend.text = element_text(size = 12),
+            legend.text = element_text(size = 14),
             legend.title = element_text(size = 14)) +
       scale_fill_manual(values = ancestry_colors) +
       scale_y_continuous(labels = scales::percent)
     
-    ggsave("out/HTAN_cancer_types_by_ancestry_stacked_vs_SEER.pdf", p13, width = 10, height = 6)
+    ggsave("out/HTAN_cancer_types_by_ancestry_stacked_vs_SEER.pdf", p13, width = 7, height = 5)
     log_message("Saved: HTAN_cancer_types_by_ancestry_stacked_vs_SEER.pdf")
     
     # SEER cancer types by ancestry
@@ -1040,16 +1040,16 @@ if(nrow(cancer_ancestry_comparison) > 0) {
            x = "Cancer Type",
            y = "Proportion",
            fill = "Ancestry") +
-      theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
-            axis.text.y = element_text(size = 12),
+      theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+            axis.text.y = element_text(size = 14),
             axis.title = element_text(size = 14),
             title = element_text(size = 16),
-            legend.text = element_text(size = 12),
+            legend.text = element_text(size = 14),
             legend.title = element_text(size = 14)) +
       scale_fill_manual(values = ancestry_colors) +
       scale_y_continuous(labels = scales::percent)
     
-    ggsave("out/SEER_cancer_types_by_ancestry_stacked.pdf", p14, width = 10, height = 6)
+    ggsave("out/SEER_cancer_types_by_ancestry_stacked.pdf", p14, width = 7, height = 5)
     log_message("Saved: SEER_cancer_types_by_ancestry_stacked.pdf")
   }
 }
@@ -1081,16 +1081,16 @@ if(nrow(cancer_sex_comparison) > 0) {
            x = "Cancer Type",
            y = "Proportion",
            fill = "Sex") +
-      theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
-            axis.text.y = element_text(size = 12),
+      theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+            axis.text.y = element_text(size = 14),
             axis.title = element_text(size = 14),
             title = element_text(size = 16),
-            legend.text = element_text(size = 12),
+            legend.text = element_text(size = 14),
             legend.title = element_text(size = 14)) +
       scale_fill_manual(values = sex_colors) +
       scale_y_continuous(labels = scales::percent)
     
-    ggsave("out/HTAN_cancer_types_by_sex_stacked_vs_SEER.pdf", p15, width = 10, height = 6)
+    ggsave("out/HTAN_cancer_types_by_sex_stacked_vs_SEER.pdf", p15, width = 7, height = 5)
     log_message("Saved: HTAN_cancer_types_by_sex_stacked_vs_SEER.pdf")
     
       # SEER cancer types by sex
@@ -1111,16 +1111,16 @@ if(nrow(cancer_sex_comparison) > 0) {
            x = "Cancer Type",
            y = "Proportion",
            fill = "Sex") +
-      theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
-            axis.text.y = element_text(size = 12),
+      theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+            axis.text.y = element_text(size = 14),
             axis.title = element_text(size = 14),
             title = element_text(size = 16),
-            legend.text = element_text(size = 12),
+            legend.text = element_text(size = 14),
             legend.title = element_text(size = 14)) +
       scale_fill_manual(values = sex_colors) +
       scale_y_continuous(labels = scales::percent)
     
-    ggsave("out/SEER_cancer_types_by_sex_stacked.pdf", p16, width = 10, height = 6)
+    ggsave("out/SEER_cancer_types_by_sex_stacked.pdf", p16, width = 7, height = 5)
     log_message("Saved: SEER_cancer_types_by_sex_stacked.pdf")
   }
 }
@@ -1150,15 +1150,15 @@ if(nrow(cancer_ancestry_comparison) > 0) {
              x = "Ancestry Group", 
              y = "Percentage (%)",
              fill = "Data Source") +
-        theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
-              axis.text.y = element_text(size = 12),
+        theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+              axis.text.y = element_text(size = 14),
               axis.title = element_text(size = 14),
               title = element_text(size = 16),
-              legend.text = element_text(size = 12),
+              legend.text = element_text(size = 14),
               legend.title = element_text(size = 14)) +
         scale_fill_manual(values = c("HTAN Dataset" = "steelblue", "SEER Reference" = "darkred"))
       
-      ggsave(paste0("out/HTAN_vs_SEER_ancestry_", gsub(" ", "_", cancer_type), ".pdf"), p17, width = 8, height = 5)
+      ggsave(paste0("out/HTAN_vs_SEER_ancestry_", gsub(" ", "_", cancer_type), ".pdf"), p17, width = 5, height = 5.5)
       log_message(paste("Saved: HTAN_vs_SEER_ancestry_", gsub(" ", "_", cancer_type), ".pdf"))
     }
     
@@ -1174,15 +1174,15 @@ if(nrow(cancer_ancestry_comparison) > 0) {
              x = "Sex", 
              y = "Percentage (%)",
              fill = "Data Source") +
-        theme(axis.text.x = element_text(angle = 0, size = 12),
-              axis.text.y = element_text(size = 12),
+        theme(axis.text.x = element_text(angle = 0, size = 14),
+              axis.text.y = element_text(size = 14),
               axis.title = element_text(size = 14),
               title = element_text(size = 16),
-              legend.text = element_text(size = 12),
+              legend.text = element_text(size = 14),
               legend.title = element_text(size = 14)) +
         scale_fill_manual(values = c("HTAN Dataset" = "steelblue", "SEER Reference" = "darkred"))
       
-      ggsave(paste0("out/HTAN_vs_SEER_sex_", gsub(" ", "_", cancer_type), ".pdf"), p18, width = 6, height = 4)
+      ggsave(paste0("out/HTAN_vs_SEER_sex_", gsub(" ", "_", cancer_type), ".pdf"), p18, width = 5, height = 5.5)
       log_message(paste("Saved: HTAN_vs_SEER_sex_", gsub(" ", "_", cancer_type), ".pdf"))
     }
   }

@@ -99,14 +99,14 @@ p1_full <- ggplot(data = subset(ancestry_summary, !is.na(Ancestry)),
   labs(title = "psychAD: Sample Distribution by Ancestry (All Categories)",
        x = "Ancestry Group",
        y = "Number of Samples") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
-        axis.text.y = element_text(size = 12),
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+        axis.text.y = element_text(size = 14),
         axis.title = element_text(size = 14),
         title = element_text(size = 16),
         legend.position = "none") +
   scale_fill_manual(values = ancestry_colors)
 
-ggsave("out/psychAD_ancestry_distribution_barplot_full.pdf", p1_full, width = 4, height = 3)
+ggsave("out/psychAD_ancestry_distribution_barplot_full.pdf", p1_full, width = 3, height = 2.5)
 log_message("Saved: psychAD_ancestry_distribution_barplot_full.pdf")
 
 # Version 2: Excluding Unknown/Other
@@ -120,14 +120,14 @@ p1_canonical <- ggplot(data = ancestry_summary_canonical,
   labs(title = "psychAD: Sample Distribution by Ancestry (Canonical Only)",
        x = "Ancestry Group",
        y = "Number of Samples") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
-        axis.text.y = element_text(size = 12),
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+        axis.text.y = element_text(size = 14),
         axis.title = element_text(size = 14),
         title = element_text(size = 16),
         legend.position = "none") +
   scale_fill_manual(values = ancestry_colors)
 
-ggsave("out/psychAD_ancestry_distribution_barplot_canonical.pdf", p1_canonical, width = 4, height = 3)
+ggsave("out/psychAD_ancestry_distribution_barplot_canonical.pdf", p1_canonical, width = 3, height = 2.5)
 log_message("Saved: psychAD_ancestry_distribution_barplot_canonical.pdf")
 
 # Pie chart for ancestry - Version 1: Including Unknown/Other
@@ -138,10 +138,10 @@ p2_full <- ggplot(data = subset(ancestry_summary, !is.na(Ancestry)),
   theme_void(base_size = 14) +
   labs(title = "psychAD: Ancestry Distribution (All Categories)") +
   theme(title = element_text(size = 16),
-        legend.text = element_text(size = 12)) +
+        legend.text = element_text(size = 14)) +
   scale_fill_manual(values = ancestry_colors)
 
-ggsave("out/psychAD_ancestry_distribution_pie_full.pdf", p2_full, width = 4, height = 3)
+ggsave("out/psychAD_ancestry_distribution_pie_full.pdf", p2_full, width = 3, height = 2.5)
 log_message("Saved: psychAD_ancestry_distribution_pie_full.pdf")
 
 # Version 2: Excluding Unknown/Other
@@ -152,10 +152,10 @@ p2_canonical <- ggplot(data = ancestry_summary_canonical,
   theme_void(base_size = 14) +
   labs(title = "psychAD: Ancestry Distribution (Canonical Only)") +
   theme(title = element_text(size = 16),
-        legend.text = element_text(size = 12)) +
+        legend.text = element_text(size = 14)) +
   scale_fill_manual(values = ancestry_colors)
 
-ggsave("out/psychAD_ancestry_distribution_pie_canonical.pdf", p2_canonical, width = 4, height = 3)
+ggsave("out/psychAD_ancestry_distribution_pie_canonical.pdf", p2_canonical, width = 3, height = 2.5)
 log_message("Saved: psychAD_ancestry_distribution_pie_canonical.pdf")
 
 # ============================================================================
@@ -198,15 +198,15 @@ p3 <- ggplot(plot_data, aes(x = Ancestry_clean, y = n, fill = sex)) +
        x = "Ancestry Group",
        y = "Number of Samples",
        fill = "Sex") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
-        axis.text.y = element_text(size = 12),
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+        axis.text.y = element_text(size = 14),
         axis.title = element_text(size = 14),
         title = element_text(size = 16),
-        legend.text = element_text(size = 12),
+        legend.text = element_text(size = 14),
         legend.title = element_text(size = 14)) +
   scale_fill_manual(values = sex_colors)
 
-ggsave("out/psychAD_gender_by_ancestry_barplot_full.pdf", p3, width = 5, height = 3)
+ggsave("out/psychAD_gender_by_ancestry_barplot_full.pdf", p3, width = 4, height = 2.5)
 log_message("Saved: psychAD_gender_by_ancestry_barplot_full.pdf")
 
 # Stacked proportional bar chart
@@ -217,16 +217,16 @@ p4 <- ggplot(plot_data, aes(x = Ancestry_clean, y = prop, fill = sex)) +
        x = "Ancestry Group",
        y = "Proportion",
        fill = "Sex") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
-        axis.text.y = element_text(size = 12),
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+        axis.text.y = element_text(size = 14),
         axis.title = element_text(size = 14),
         title = element_text(size = 16),
-        legend.text = element_text(size = 12),
+        legend.text = element_text(size = 14),
         legend.title = element_text(size = 14)) +
   scale_fill_manual(values = sex_colors) +
   scale_y_continuous(labels = scales::percent)
 
-ggsave("out/gender_proportions_by_ancestry.pdf", p4, width = 5, height = 3)
+ggsave("out/gender_proportions_by_ancestry.pdf", p4, width = 4, height = 2.5)
 log_message("Saved: gender_proportions_by_ancestry.pdf")
 
 # ============================================================================
@@ -339,18 +339,18 @@ disease_counts_plot <- disease_data %>%
 p_disease_dist <- ggplot(disease_counts_plot, aes(x = reorder(Disease, Count), y = Count)) +
   geom_bar(stat = "identity", fill = "#1F78B4", alpha = 0.8) +
   geom_text(aes(label = paste0(Count, "\n(", Percentage, "%)")),
-            hjust = -0.1, size = 3, color = "black") +
+            hjust = -0.1, size = 4, color = "black") +
   coord_flip() +
   labs(title = "Disease Distribution in PsychAD Dataset",
        x = "Disease Type",
        y = "Number of Samples") +
   theme_minimal() +
-  theme(plot.title = element_text(hjust = 0.5, size = 12, face = "bold"),
-        axis.text = element_text(size = 10),
+  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
+        axis.text = element_text(size = 14),
         axis.title = element_text(size = 11)) +
   scale_y_continuous(expand = expansion(mult = c(0, 0.15)))
 
-ggsave("out/PsychAD_disease_type_distribution.pdf", p_disease_dist, width = 8, height = 6)
+ggsave("out/PsychAD_disease_type_distribution.pdf", p_disease_dist, width = 7, height = 5)
 log_message("Saved: PsychAD_disease_type_distribution.pdf")
 
 log_message("\n=== STEP 1-3 COMPLETED ===")
@@ -394,19 +394,19 @@ heatmap_data <- data %>%
 
 p5 <- ggplot(heatmap_data, aes(x = sex, y = Ancestry_clean, fill = n)) +
   geom_tile(color = "white") +
-  geom_text(aes(label = n), color = "white", size = 5) +
+  geom_text(aes(label = n), color = "white", size = 6) +
   scale_fill_gradient(low = "lightblue", high = "darkblue", name = "Count") +
   theme_minimal(base_size = 14) +
   labs(title = "Sample Count Heatmap: Ancestry × Gender",
        x = "Gender", y = "Ancestry") +
-  theme(axis.text.x = element_text(angle = 0, size = 12),
-        axis.text.y = element_text(size = 12),
+  theme(axis.text.x = element_text(angle = 0, size = 14),
+        axis.text.y = element_text(size = 14),
         axis.title = element_text(size = 14),
         title = element_text(size = 16),
-        legend.text = element_text(size = 12),
+        legend.text = element_text(size = 14),
         legend.title = element_text(size = 14))
 
-ggsave("out/intersectional_heatmap.pdf", p5, width = 4, height = 3)
+ggsave("out/intersectional_heatmap.pdf", p5, width = 3, height = 2.5)
 log_message("Saved: intersectional_heatmap.pdf")
 
 # Missing data patterns by demographics
@@ -829,15 +829,15 @@ if(exists("equity_metrics_adrd") && nrow(equity_metrics_adrd) > 0) {
          x = "Ancestry Group", 
          y = "Percentage (%)",
          fill = "Data Source") +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
-          axis.text.y = element_text(size = 12),
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+          axis.text.y = element_text(size = 14),
           axis.title = element_text(size = 14),
           title = element_text(size = 16),
-          legend.text = element_text(size = 12),
+          legend.text = element_text(size = 14),
           legend.title = element_text(size = 14)) +
     scale_fill_manual(values = c("PsychAD Dataset" = "steelblue", "ADRD Reference" = "darkred"))
 
-  ggsave("out/PsychAD_ancestry_vs_ADRD_reference.pdf", p_adrd_ancestry, width = 8, height = 5)
+  ggsave("out/PsychAD_ancestry_vs_ADRD_reference.pdf", p_adrd_ancestry, width = 5, height = 3.5)
   log_message("Saved: PsychAD_ancestry_vs_ADRD_reference.pdf")
   
   # Create ADRD reference barplot in same format as PsychAD
@@ -850,14 +850,14 @@ if(exists("equity_metrics_adrd") && nrow(equity_metrics_adrd) > 0) {
     labs(title = "ADRD Reference: Disease Demographics by Ancestry",
          x = "Ancestry Group", 
          y = "Percentage (%)") +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
-          axis.text.y = element_text(size = 12),
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+          axis.text.y = element_text(size = 14),
           axis.title = element_text(size = 14),
           title = element_text(size = 16),
           legend.position = "none") +
     scale_fill_manual(values = ancestry_colors)
 
-  ggsave("out/ADRD_reference_ancestry_distribution_barplot.pdf", p_adrd_ancestry_ref, width = 4, height = 3)
+  ggsave("out/ADRD_reference_ancestry_distribution_barplot.pdf", p_adrd_ancestry_ref, width = 3, height = 2.5)
   log_message("Saved: ADRD_reference_ancestry_distribution_barplot.pdf")
 }
 
@@ -884,15 +884,15 @@ if(nrow(sex_data) > 0) {
          x = "Sex", 
          y = "Percentage (%)",
          fill = "Data Source") +
-    theme(axis.text.x = element_text(angle = 0, size = 12),
-          axis.text.y = element_text(size = 12),
+    theme(axis.text.x = element_text(angle = 0, size = 14),
+          axis.text.y = element_text(size = 14),
           axis.title = element_text(size = 14),
           title = element_text(size = 16),
-          legend.text = element_text(size = 12),
+          legend.text = element_text(size = 14),
           legend.title = element_text(size = 14)) +
     scale_fill_manual(values = c("PsychAD Dataset" = "steelblue", "ADRD Reference" = "darkred"))
 
-  ggsave("out/PsychAD_sex_vs_ADRD_reference.pdf", p_adrd_sex, width = 6, height = 4)
+  ggsave("out/PsychAD_sex_vs_ADRD_reference.pdf", p_adrd_sex, width = 5, height = 3.5)
   log_message("Saved: PsychAD_sex_vs_ADRD_reference.pdf")
   
   # Create ADRD reference barplot for sex in same format as PsychAD
@@ -902,14 +902,14 @@ if(nrow(sex_data) > 0) {
     labs(title = "ADRD Reference: Disease Demographics by Sex",
          x = "Sex", 
          y = "Percentage (%)") +
-    theme(axis.text.x = element_text(angle = 0, size = 12),
-          axis.text.y = element_text(size = 12),
+    theme(axis.text.x = element_text(angle = 0, size = 14),
+          axis.text.y = element_text(size = 14),
           axis.title = element_text(size = 14),
           title = element_text(size = 16),
           legend.position = "none") +
     scale_fill_manual(values = sex_colors)
 
-  ggsave("out/ADRD_reference_sex_distribution_barplot.pdf", p_adrd_sex_ref, width = 4, height = 3)
+  ggsave("out/ADRD_reference_sex_distribution_barplot.pdf", p_adrd_sex_ref, width = 3, height = 2.5)
   log_message("Saved: ADRD_reference_sex_distribution_barplot.pdf")
 }
 
@@ -1075,17 +1075,17 @@ if(nrow(disease_ancestry_comparison) > 0) {
            x = "Disease Type",
            y = "Proportion",
            fill = "Ancestry") +
-      theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
-            axis.text.y = element_text(size = 12),
+      theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+            axis.text.y = element_text(size = 14),
             axis.title = element_text(size = 14),
             title = element_text(size = 16),
-            legend.text = element_text(size = 12),
+            legend.text = element_text(size = 14),
             legend.title = element_text(size = 14)) +
       scale_fill_manual(values = ancestry_colors) +
       scale_y_continuous(labels = scales::percent)
     
     # Adjust width based on number of diseases
-    plot_width <- max(8, length(disease_groups_with_data) * 1.2)
+    plot_width <- max(6, length(disease_groups_with_data) * 0.6)
     ggsave("out/PsychAD_diseases_by_ancestry_stacked_vs_ADRD.pdf", p_disease_ancestry, width = plot_width, height = 6)
     log_message("Saved: PsychAD_diseases_by_ancestry_stacked_vs_ADRD.pdf")
     
@@ -1105,17 +1105,17 @@ if(nrow(disease_ancestry_comparison) > 0) {
            x = "Disease Type",
            y = "Proportion",
            fill = "Ancestry") +
-      theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
-            axis.text.y = element_text(size = 12),
+      theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+            axis.text.y = element_text(size = 14),
             axis.title = element_text(size = 14),
             title = element_text(size = 16),
-            legend.text = element_text(size = 12),
+            legend.text = element_text(size = 14),
             legend.title = element_text(size = 14)) +
       scale_fill_manual(values = ancestry_colors) +
       scale_y_continuous(labels = scales::percent)
     
     # Adjust width based on number of diseases
-    plot_width <- max(8, length(disease_groups_with_data) * 1.2)
+    plot_width <- max(6, length(disease_groups_with_data) * 0.6)
     ggsave("out/ADRD_diseases_by_ancestry_stacked.pdf", p_adrd_disease_ancestry, width = plot_width, height = 6)
     log_message("Saved: ADRD_diseases_by_ancestry_stacked.pdf")
   }
@@ -1148,17 +1148,17 @@ if(nrow(disease_sex_comparison) > 0) {
            x = "Disease Type",
            y = "Proportion",
            fill = "Sex") +
-      theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
-            axis.text.y = element_text(size = 12),
+      theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+            axis.text.y = element_text(size = 14),
             axis.title = element_text(size = 14),
             title = element_text(size = 16),
-            legend.text = element_text(size = 12),
+            legend.text = element_text(size = 14),
             legend.title = element_text(size = 14)) +
       scale_fill_manual(values = sex_colors) +
       scale_y_continuous(labels = scales::percent)
     
     # Adjust width based on number of diseases
-    plot_width <- max(8, length(disease_groups_with_data) * 1.2)
+    plot_width <- max(6, length(disease_groups_with_data) * 0.6)
     ggsave("out/PsychAD_diseases_by_sex_stacked_vs_ADRD.pdf", p_disease_sex, width = plot_width, height = 6)
     log_message("Saved: PsychAD_diseases_by_sex_stacked_vs_ADRD.pdf")
     
@@ -1178,17 +1178,17 @@ if(nrow(disease_sex_comparison) > 0) {
            x = "Disease Type",
            y = "Proportion",
            fill = "Sex") +
-      theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
-            axis.text.y = element_text(size = 12),
+      theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+            axis.text.y = element_text(size = 14),
             axis.title = element_text(size = 14),
             title = element_text(size = 16),
-            legend.text = element_text(size = 12),
+            legend.text = element_text(size = 14),
             legend.title = element_text(size = 14)) +
       scale_fill_manual(values = sex_colors) +
       scale_y_continuous(labels = scales::percent)
     
     # Adjust width based on number of diseases
-    plot_width <- max(8, length(disease_groups_with_data) * 1.2)
+    plot_width <- max(6, length(disease_groups_with_data) * 0.6)
     ggsave("out/ADRD_diseases_by_sex_stacked.pdf", p_adrd_disease_sex, width = plot_width, height = 6)
     log_message("Saved: ADRD_diseases_by_sex_stacked.pdf")
   }
@@ -1219,11 +1219,11 @@ if(nrow(disease_ancestry_comparison) > 0) {
              x = "Ancestry Group", 
              y = "Percentage (%)",
              fill = "Data Source") +
-        theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
-              axis.text.y = element_text(size = 12),
+        theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+              axis.text.y = element_text(size = 14),
               axis.title = element_text(size = 14),
               title = element_text(size = 16),
-              legend.text = element_text(size = 12),
+              legend.text = element_text(size = 14),
               legend.title = element_text(size = 14)) +
         scale_fill_manual(values = c("PsychAD Dataset" = "steelblue", "ADRD Reference" = "darkred"))
       
@@ -1246,11 +1246,11 @@ if(nrow(disease_ancestry_comparison) > 0) {
              x = "Sex", 
              y = "Percentage (%)",
              fill = "Data Source") +
-        theme(axis.text.x = element_text(angle = 0, size = 12),
-              axis.text.y = element_text(size = 12),
+        theme(axis.text.x = element_text(angle = 0, size = 14),
+              axis.text.y = element_text(size = 14),
               axis.title = element_text(size = 14),
               title = element_text(size = 16),
-              legend.text = element_text(size = 12),
+              legend.text = element_text(size = 14),
               legend.title = element_text(size = 14)) +
         scale_fill_manual(values = c("PsychAD Dataset" = "steelblue", "ADRD Reference" = "darkred"))
       
@@ -1325,19 +1325,19 @@ ancestry_dist_data <- data %>%
 p_ancestry_overall <- ggplot(ancestry_dist_data, aes(x = reorder(Ancestry_clean, -n), y = n, fill = Ancestry_clean)) +
   geom_bar(stat = "identity") +
   geom_text(aes(label = paste0(n, "\n(", percentage, "%)")), 
-            vjust = -0.5, size = 3) +
+            vjust = -0.5, size = 4) +
   theme_minimal(base_size = 14) +
   labs(title = "Ancestry Distribution - Whole Cohort",
        x = "Ancestry Group", 
        y = "Number of Samples") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
-        axis.text.y = element_text(size = 12),
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+        axis.text.y = element_text(size = 14),
         axis.title = element_text(size = 14),
         title = element_text(size = 16),
         legend.position = "none") +
   scale_fill_manual(values = ancestry_colors)
 
-ggsave("out/ancestry_distribution_whole_cohort.pdf", p_ancestry_overall, width = 4, height = 3)
+ggsave("out/ancestry_distribution_whole_cohort.pdf", p_ancestry_overall, width = 3, height = 2.5)
 log_message("Saved: ancestry_distribution_whole_cohort.pdf")
 
 # 2. 100% stacked bar chart colored by ancestry for each disease diagnosis
@@ -1385,17 +1385,17 @@ p_disease_ancestry <- ggplot(disease_ancestry_data, aes(x = disease_label, y = p
        x = "Disease Diagnosis", 
        y = "Proportion",
        fill = "Ancestry") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
-        axis.text.y = element_text(size = 12),
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+        axis.text.y = element_text(size = 14),
         axis.title = element_text(size = 14),
         title = element_text(size = 16),
-        legend.text = element_text(size = 12),
+        legend.text = element_text(size = 14),
         legend.title = element_text(size = 14)) +
   scale_fill_manual(values = ancestry_colors) +
   scale_y_continuous(labels = scales::percent)
 
 # Adjust width based on number of diseases
-plot_width <- max(8, length(unique(disease_ancestry_data$disease)) * 1.5)
+plot_width <- max(6, length(unique(disease_ancestry_data$disease)) * 0.6)
 ggsave("out/disease_diagnoses_by_ancestry_stacked.pdf", p_disease_ancestry, width = plot_width, height = 4)
 log_message("Saved: disease_diagnoses_by_ancestry_stacked.pdf")
 
@@ -1442,11 +1442,11 @@ p_disease_sex <- ggplot(disease_sex_data, aes(x = disease_label, y = prop, fill 
        x = "Disease Diagnosis", 
        y = "Proportion",
        fill = "Sex") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
-        axis.text.y = element_text(size = 12),
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 14),
+        axis.text.y = element_text(size = 14),
         axis.title = element_text(size = 14),
         title = element_text(size = 16),
-        legend.text = element_text(size = 12),
+        legend.text = element_text(size = 14),
         legend.title = element_text(size = 14)) +
   scale_fill_manual(values = sex_colors) +
   scale_y_continuous(labels = scales::percent)
